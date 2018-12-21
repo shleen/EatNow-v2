@@ -48,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                         finish();
 
-                        Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+                        Intent i = new Intent(getApplicationContext(), Home.class);
                         startActivity(i);
                     }
                     else
