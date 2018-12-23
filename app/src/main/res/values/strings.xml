@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">EatNow</string>
+    <string name="sign_in"><u>Sign In</u></string>
+    <string name="sign_up">Sign Up</string>
     <string name="title_activity_home">Home</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
