@@ -42,6 +42,7 @@ public class SignUpActivity extends AppCompatActivity {
         String password = Help.getText(textPassword);
         String cfm_password = Help.getText(textCfmPassword);
 
+        // Validate empty inputs
         if (email.isEmpty() || password.isEmpty() || cfm_password.isEmpty())
         { Toast.makeText(getApplicationContext(), "Please fill in all fields.", Toast.LENGTH_SHORT).show(); }
         else

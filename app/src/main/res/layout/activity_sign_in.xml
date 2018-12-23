@@ -4,59 +4,47 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SignUpActivity">
+    tools:context=".SignInActivity">
 
     <TextView
-        android:id="@+id/sJoin"
+        android:id="@+id/sWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="140dp"
         android:layout_centerHorizontal="true"
         android:textSize="@dimen/h1"
         android:textStyle="bold"
-        android:text="Join EatNow, now!" />
+        android:text="Welcome back!" />
 
     <EditText
         android:id="@+id/textEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textEmailAddress"
-        android:hint="Email Address"
-        android:layout_below="@id/sJoin"
+        android:layout_below="@id/sWelcome"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginEnd="16dp"
+        android:inputType="textEmailAddress"
+        android:hint="Email Address" />
 
     <EditText
         android:id="@+id/textPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:layout_below="@+id/textEmail"
+        android:layout_below="@id/textEmail"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:hint="Password"/>
-
-    <EditText
-        android:id="@+id/textCfmPassword"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textPassword"
         android:inputType="textPassword"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="Confirm Password"/>
+        android:hint="Password" />
 
     <Button
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textCfmPassword"
+        android:layout_below="@+id/textPassword"
         android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:background="@drawable/rounded_button"
@@ -64,6 +52,6 @@
         android:textColor="#fff"
         android:textSize="@dimen/btn_font"
         android:textAllCaps="false"
-        android:text="@string/sign_up"
-        android:onClick="createUser"/>
+        android:onClick="signInUser"
+        android:text="@string/sign_in"/>
 </RelativeLayout>

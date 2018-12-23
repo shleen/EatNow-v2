@@ -47,6 +47,6 @@
             android:id="@+id/lkSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/sign_in" />
+            android:text="@string/sign_in_u" />
     </android.support.v7.widget.LinearLayoutCompat>
 </RelativeLayout>
