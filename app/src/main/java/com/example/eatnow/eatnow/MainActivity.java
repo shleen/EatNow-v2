@@ -24,11 +24,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
     }
 
     public void openSignUp(View v)
     {
-        Intent i = new Intent(this, RegisterActivity.class);
+        Intent i = new Intent(this, SignUpActivity.class);
         startActivity(i);
     }
 }
