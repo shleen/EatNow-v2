@@ -25,6 +25,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.NumberFormat;
+
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -75,6 +77,9 @@ public class Home extends AppCompatActivity
             @Override
             protected void populateViewHolder(FoodItemViewHolder viewHolder, FoodItem model, int position) {
                 viewHolder.txtMenuItemName.setText(model.getName());
+
+                NumberFormat formatter = NumberFormat.getCurrencyInstance();
+                viewHolder.txtMenuItemPrice.setText(formatter.format(model.getPrice()));
 
                 final FoodItem clickItem = model;
                 viewHolder.setItemClickListener(new ItemClickListener() {

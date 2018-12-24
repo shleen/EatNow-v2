@@ -11,13 +11,15 @@ import com.example.eatnow.eatnow.R;
 public class FoodItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     public TextView txtMenuItemName;
+    public TextView txtMenuItemPrice;
 
     private ItemClickListener itemClickListener;
 
     public FoodItemViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        txtMenuItemName = (TextView) itemView.findViewById(R.id.menu_item_name);
+        txtMenuItemName = (TextView) itemView.findViewById(R.id.food_item_name);
+        txtMenuItemPrice = (TextView) itemView.findViewById(R.id.food_item_price);
 
         itemView.setOnClickListener(this);
     }

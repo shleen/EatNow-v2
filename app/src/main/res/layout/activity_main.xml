@@ -36,17 +36,19 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/btnSignUp"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
             android:text="Already have an account? " />
 
         <TextView
             android:id="@+id/lkSignIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="@color/colorAccent"
             android:text="@string/sign_in_u" />
     </android.support.v7.widget.LinearLayoutCompat>
 </RelativeLayout>
