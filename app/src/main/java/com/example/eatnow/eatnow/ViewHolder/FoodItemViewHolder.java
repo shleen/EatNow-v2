@@ -3,6 +3,7 @@ package com.example.eatnow.eatnow.ViewHolder;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.eatnow.eatnow.Model.ItemClickListener;
@@ -12,6 +13,7 @@ public class FoodItemViewHolder extends RecyclerView.ViewHolder implements View.
 
     public TextView txtMenuItemName;
     public TextView txtMenuItemPrice;
+    public Button btnAdd;
 
     private ItemClickListener itemClickListener;
 
@@ -20,6 +22,7 @@ public class FoodItemViewHolder extends RecyclerView.ViewHolder implements View.
 
         txtMenuItemName = (TextView) itemView.findViewById(R.id.food_item_name);
         txtMenuItemPrice = (TextView) itemView.findViewById(R.id.food_item_price);
+        btnAdd = (Button) itemView.findViewById(R.id.btnAdd);
 
         itemView.setOnClickListener(this);
     }

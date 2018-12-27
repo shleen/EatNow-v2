@@ -1,9 +1,9 @@
 package com.example.eatnow.eatnow.Model;
 
 public class FoodItem {
-    public String name;
-    public float price;
-    public int stall_id;
+    private String name;
+    private float price;
+    private int stall_id;
 
     public FoodItem() {  }
 
