@@ -84,7 +84,8 @@ tools:openDrawer="start">
             android:textAllCaps="false"
             android:textSize="@dimen/btn_font"
             android:textColor="#FFFFFF"
-            android:layout_alignParentBottom="true" />
+            android:layout_alignParentBottom="true"
+            android:onClick="checkout" />
 
     </RelativeLayout>
 

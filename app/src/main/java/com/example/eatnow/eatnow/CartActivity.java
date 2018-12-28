@@ -1,5 +1,6 @@
 package com.example.eatnow.eatnow;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -88,5 +89,11 @@ public class CartActivity extends BaseActivity {
                     //handle databaseError
                 }
             });
+    }
+
+    public void checkout(View v)
+    {
+        Intent i = new Intent(this, Payment.class);
+        startActivity(i);
     }
 }

@@ -1,6 +1,5 @@
 package com.example.eatnow.eatnow;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
@@ -10,10 +9,12 @@ import android.widget.Toast;
 import com.craftman.cardform.Card;
 import com.craftman.cardform.CardForm;
 import com.craftman.cardform.OnPayBtnClickListner;
+import com.google.firebase.auth.FirebaseAuth;
 
 
 public class Payment extends AppCompatActivity {
 
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +35,5 @@ public class Payment extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-
-
     }
 }
