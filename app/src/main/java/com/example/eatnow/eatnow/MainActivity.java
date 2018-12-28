@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Hide app bar
-        getSupportActionBar().hide();
+        // getSupportActionBar().hide();
 
         TextView lkSignIn = (TextView) findViewById(R.id.lkSignIn);
         lkSignIn.setOnClickListener(new View.OnClickListener() {

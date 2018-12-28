@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 public class SignInActivity extends AppCompatActivity {
 
     EditText textEmail, textPassword;
-
     FirebaseAuth auth;
 
     @Override
@@ -25,7 +24,7 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         // Hide app bar
-        getSupportActionBar().hide();
+        // getSupportActionBar().hide();
 
         textEmail = (EditText) findViewById(R.id.textEmail);
         textPassword = (EditText) findViewById(R.id.textPassword);

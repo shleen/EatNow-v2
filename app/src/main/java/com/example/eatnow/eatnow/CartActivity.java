@@ -67,26 +67,26 @@ public class CartActivity extends BaseActivity {
     private void displayTotal(DatabaseReference upo)
     {
         upo.addListenerForSingleValueEvent(
-                new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        float subtotal = 0;
+            new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot ds) {
+                    float subtotal = 0;
 
-                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                    Iterable<DataSnapshot> children = ds.getChildren();
 
-                        for (DataSnapshot c : children)
-                        { subtotal += Float.parseFloat(c.child("price").getValue().toString()) * Integer.parseInt(c.child("qty").getValue().toString()); }
+                    for (DataSnapshot c : children)
+                    { subtotal += Float.parseFloat(c.child("price").getValue().toString()) * Integer.parseInt(c.child("qty").getValue().toString()); }
 
-                        TextView txtSubtotal = (TextView) findViewById(R.id.txtSubtotal);
+                    TextView txtSubtotal = (TextView) findViewById(R.id.txtSubtotal);
 
-                        NumberFormat formatter = NumberFormat.getCurrencyInstance();
-                        txtSubtotal.setText(formatter.format(subtotal));
-                    }
+                    NumberFormat formatter = NumberFormat.getCurrencyInstance();
+                    txtSubtotal.setText(formatter.format(subtotal));
+                }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        //handle databaseError
-                    }
-                });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    //handle databaseError
+                }
+            });
     }
 }

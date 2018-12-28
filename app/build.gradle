@@ -39,6 +39,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:16.0.5'
 
     implementation 'commons-validator:commons-validator:1.6'
+    implementation 'com.craftman.cardform:cardform:0.0.2'
 }
 
 apply plugin: 'com.google.gms.google-services'

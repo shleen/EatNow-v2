@@ -26,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         // Hide app bar
-        getSupportActionBar().hide();
+        // getSupportActionBar().hide();
 
         textEmail = (EditText) findViewById(R.id.textEmail);
         textPassword = (EditText) findViewById(R.id.textPassword);

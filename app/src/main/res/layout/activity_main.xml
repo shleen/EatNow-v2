@@ -50,5 +50,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorAccent"
             android:text="@string/sign_in_u" />
+
     </android.support.v7.widget.LinearLayoutCompat>
+
 </RelativeLayout>
