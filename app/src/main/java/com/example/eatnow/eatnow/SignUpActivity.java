@@ -18,7 +18,6 @@ import org.apache.commons.validator.routines.EmailValidator;
 public class SignUpActivity extends AppCompatActivity {
 
     EditText textEmail, textPassword, textCfmPassword;
-
     FirebaseAuth auth;
 
     @Override
@@ -73,7 +72,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                             finish();
 
-                                            Intent i = new Intent(getApplicationContext(), Home.class);
+                                            Intent i = new Intent(getApplicationContext(), MenuActivity.class);
                                             startActivity(i);
                                         }
                                         else

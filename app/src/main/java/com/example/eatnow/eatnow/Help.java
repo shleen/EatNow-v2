@@ -1,11 +1,8 @@
 package com.example.eatnow.eatnow;
 
-import android.provider.ContactsContract;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
-
-import java.util.SortedSet;
 
 public class Help {
     // Returns the textual value of the given TextView

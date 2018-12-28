@@ -52,7 +52,7 @@ public class SignInActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Logged in successfully.", Toast.LENGTH_SHORT).show();
                                 finish();
 
-                                Intent i = new Intent(getApplicationContext(), Home.class);
+                                Intent i = new Intent(getApplicationContext(), MenuActivity.class);
                                 startActivity(i);
                             }
                             else
