@@ -1,6 +1,6 @@
 package com.example.eatnow.eatnow;
 
-gimport android.os.Bundle;
+import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,7 +11,7 @@ import com.craftman.cardform.OnPayBtnClickListner;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class Payment extends BaseActivity {
+public class PaymentActivity extends BaseActivity {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
@@ -30,7 +30,7 @@ public class Payment extends BaseActivity {
         cardForm.setPayBtnClickListner(new OnPayBtnClickListner() {
             @Override
             public void onClick(Card card) {
-                Toast.makeText(Payment.this,"Name : " + card.getName() + " | Last 4 Digits : "+card.getLast4(),
+                Toast.makeText(PaymentActivity.this,"Name : " + card.getName() + " | Last 4 Digits : "+card.getLast4(),
                         Toast.LENGTH_SHORT).show();
             }
         });

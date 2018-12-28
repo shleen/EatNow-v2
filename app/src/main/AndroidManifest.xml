@@ -31,7 +31,7 @@
         <activity
             android:name=".BaseActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Payment" />
+        <activity android:name=".PaymentActivity" />
 
     </application>
 

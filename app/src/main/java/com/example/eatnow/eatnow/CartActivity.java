@@ -6,9 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.eatnow.eatnow.Model.ItemClickListener;
 import com.example.eatnow.eatnow.Model.OrderItem;
 import com.example.eatnow.eatnow.ViewHolder.OrderItemViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -93,7 +91,7 @@ public class CartActivity extends BaseActivity {
 
     public void checkout(View v)
     {
-        Intent i = new Intent(this, Payment.class);
+        Intent i = new Intent(this, PaymentActivity.class);
         startActivity(i);
     }
 }
