@@ -105,8 +105,7 @@ public class MenuActivity extends BaseActivity {
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                                         // Add item to order
-                                                        int next_id = Help.getNextId(dataSnapshot) + 1;
-                                                        user_pending_orders.child(Integer.toString(next_id)).setValue(oi);
+                                                        Help.addToOrder(oi, user_pending_orders, dataSnapshot);
                                                     }
 
                                                     @Override
