@@ -12,14 +12,14 @@ import com.craftman.cardform.OnPayBtnClickListner;
 import com.google.firebase.auth.FirebaseAuth;
 
 
-public class Payment extends AppCompatActivity {
+public class Payment extends BaseActivity {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment);
+        super.onCreate(savedInstanceState);
 
         CardForm cardForm = (CardForm)findViewById(R.id.cardform);
         TextView txtDes = (TextView)findViewById(R.id.payment_amount);
