@@ -29,6 +29,12 @@ dependencies {
 
     implementation 'com.google.firebase:firebase-core:16.0.6'
     implementation 'com.google.firebase:firebase-auth:16.1.0'
+
+
+
+    //Add Library
+    implementation 'com.craftman.cardform:cardform:0.0.2'
+
 }
 
 apply plugin: 'com.google.gms.google-services'
