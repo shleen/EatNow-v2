@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.example.eatnow.eatnow.Model.ItemClickListener;
 import com.example.eatnow.eatnow.R;
 
-public class OrderItemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class OrderItemViewHolder extends RecyclerView.ViewHolder {
     public TextView txtOrderItemQty;
     public TextView txtOrderItemName;
     public TextView txtOrderItemPrice;
@@ -21,16 +21,5 @@ public class OrderItemViewHolder extends RecyclerView.ViewHolder implements View
         txtOrderItemQty = (TextView) itemView.findViewById(R.id.order_item_qty);
         txtOrderItemName = (TextView) itemView.findViewById(R.id.order_item_name);
         txtOrderItemPrice = (TextView) itemView.findViewById(R.id.order_item_price);
-
-        itemView.setOnClickListener(this);
-    }
-
-    public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
-    }
-
-    @Override
-    public void onClick(View v) {
-        itemClickListener.onClick(v, getAdapterPosition(), false);
     }
 }
