@@ -39,4 +39,17 @@ public class Help {
             { upo.child(Integer.toString(getNextId(ds) + 1)).setValue(oi); }
         }
     }
+
+    // Returns the total of a given order
+    public static double calculateTotal(DataSnapshot ds)
+    {
+        double total = 0;
+
+        Iterable<DataSnapshot> children = ds.getChildren();
+
+        for (DataSnapshot c : children)
+        { total += Double.parseDouble(c.child("price").getValue().toString()) * Integer.parseInt(c.child("qty").getValue().toString()); }
+
+        return total;
+    }
 }

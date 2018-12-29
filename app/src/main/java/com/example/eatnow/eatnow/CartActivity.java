@@ -69,12 +69,12 @@ public class CartActivity extends BaseActivity {
             new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot ds) {
-                    float subtotal = 0;
+                    double subtotal = 0;
 
                     Iterable<DataSnapshot> children = ds.getChildren();
 
                     for (DataSnapshot c : children)
-                    { subtotal += Float.parseFloat(c.child("price").getValue().toString()) * Integer.parseInt(c.child("qty").getValue().toString()); }
+                    { subtotal += Double.parseDouble(c.child("price").getValue().toString()) * Integer.parseInt(c.child("qty").getValue().toString()); }
 
                     TextView txtSubtotal = (TextView) findViewById(R.id.txtSubtotal);
 
