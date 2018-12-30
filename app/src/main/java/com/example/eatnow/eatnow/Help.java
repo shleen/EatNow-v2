@@ -1,6 +1,5 @@
 package com.example.eatnow.eatnow;
-
-import android.util.Log;
+gi
 import android.widget.TextView;
 
 import com.example.eatnow.eatnow.Model.OrderItem;
@@ -38,12 +37,8 @@ public class Help {
         if (Iterables.size(ds.getChildren()) == 0)
         { upo.child("0").setValue(oi); }
 
-        Log.w("eatnow-debug", "HERE");
-
         for (DataSnapshot c : ds.getChildren())
         {
-            Log.w("eatnow-debug", c.child("name").getValue().toString());
-
             if (c.child("name").getValue().toString().equals(oi.getName()))
             {
                 upo.child(c.getKey()).child("qty").setValue(Integer.parseInt(c.child("qty").getValue().toString()) + oi.getQty());
