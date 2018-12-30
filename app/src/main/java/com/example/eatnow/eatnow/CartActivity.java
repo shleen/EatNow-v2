@@ -6,9 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.eatnow.eatnow.Model.ItemClickListener;
 import com.example.eatnow.eatnow.Model.OrderItem;
 import com.example.eatnow.eatnow.ViewHolder.OrderItemViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -71,12 +69,12 @@ public class CartActivity extends BaseActivity {
             new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot ds) {
-                    float subtotal = 0;
+                    double subtotal = 0;
 
                     Iterable<DataSnapshot> children = ds.getChildren();
 
                     for (DataSnapshot c : children)
-                    { subtotal += Float.parseFloat(c.child("price").getValue().toString()) * Integer.parseInt(c.child("qty").getValue().toString()); }
+                    { subtotal += Double.parseDouble(c.child("price").getValue().toString()) * Integer.parseInt(c.child("qty").getValue().toString()); }
 
                     TextView txtSubtotal = (TextView) findViewById(R.id.txtSubtotal);
 
@@ -93,7 +91,7 @@ public class CartActivity extends BaseActivity {
 
     public void checkout(View v)
     {
-        Intent i = new Intent(this, Payment.class);
+        Intent i = new Intent(this, PaymentActivity.class);
         startActivity(i);
     }
 }

@@ -95,18 +95,22 @@ public class MenuActivity extends BaseActivity {
                                         final OrderItem oi = new OrderItem(clickItem.getName(), clickItem.getPrice(), clickItem.getStall_id(), Integer.parseInt(txtQty.getText().toString()));
 
                                         // Get the next ID
-                                        final DatabaseReference user_pending_orders = pending_orders.child(Help.stripPath(auth.getCurrentUser().getEmail()));
-                                        user_pending_orders.addListenerForSingleValueEvent(
+                                        final DatabaseReference user_pending_order = pending_orders.child(Help.stripPath(auth.getCurrentUser().getEmail()));
+                                        user_pending_order.addListenerForSingleValueEvent(
                                                 new ValueEventListener() {
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                                         // Add item to order
-                                                        Help.addToOrder(oi, user_pending_orders, dataSnapshot);
+                                                        Help.addToOrder(oi, user_pending_order, dataSnapshot);
+
+                                                        // Display success message
+                                                        Toast.makeText(MenuActivity.this, "Item added successfully!", Toast.LENGTH_SHORT).show();
                                                     }
 
                                                     @Override
                                                     public void onCancelled(DatabaseError databaseError) {
-                                                        //handle databaseError
+                                                        // Handle databaseError
+                                                        Toast.makeText(MenuActivity.this, "Something went wrong. Please try again.", Toast.LENGTH_SHORT).show();
                                                     }
                                                 });
                                     }

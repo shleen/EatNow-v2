@@ -30,6 +30,10 @@ public class SignInActivity extends AppCompatActivity {
         textPassword = (EditText) findViewById(R.id.textPassword);
 
         auth = FirebaseAuth.getInstance();
+
+        // TODO: Remove pre-filled fields
+        textEmail.setText("test@t.com");
+        textPassword.setText("pass123");
     }
 
     public void signInUser(View v)
