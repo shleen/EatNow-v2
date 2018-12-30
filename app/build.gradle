@@ -40,6 +40,8 @@ dependencies {
 
     implementation 'commons-validator:commons-validator:1.6'
     implementation 'com.craftman.cardform:cardform:0.0.2'
+
+    api 'com.google.guava:guava:27.0.1-android'
 }
 
 apply plugin: 'com.google.gms.google-services'
