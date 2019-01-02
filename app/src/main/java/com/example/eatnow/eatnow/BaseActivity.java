@@ -40,6 +40,8 @@ public class BaseActivity extends AppCompatActivity {
                             i = new Intent(getApplicationContext(), CartActivity.class);
                         } else if (id == R.id.nav_orders) {
 
+                        } else if (id == R.id.nav_qr) {
+                            i = new Intent(getApplicationContext(), QRActivity.class);
                         } else if (id == R.id.nav_logout) {
                             signOut();
                             i = new Intent(getApplicationContext(), MainActivity.class);
