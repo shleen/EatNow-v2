@@ -17,6 +17,8 @@
             android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <android.support.v7.widget.Toolbar
@@ -30,6 +32,23 @@
         </android.support.design.widget.AppBarLayout>
 
         <!-- Place content here -->
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Scan QR Code"
+            android:textSize="16sp"
+            android:id="@+id/btn_QRScanner"
+            android:layout_below="@id/app_bar_layout" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Result"
+            android:gravity="center"
+            android:textSize="22sp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/txt_displayResult"
+            android:layout_below="@id/btn_QRScanner" />
 
     </RelativeLayout>
 
