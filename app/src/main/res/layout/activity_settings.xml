@@ -30,6 +30,16 @@ tools:context=".SettingsActivity">
 
     </android.support.design.widget.AppBarLayout>
 
+    <TextView
+        android:id="@+id/lkConvertToStaff"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:text="@string/convert_to_staff"
+        android:layout_below="@id/app_bar_layout"
+        android:gravity="center_vertical"
+        android:textSize="18sp"
+        android:layout_marginLeft="16dp"/>
+
 </RelativeLayout>
 
 <android.support.design.widget.NavigationView

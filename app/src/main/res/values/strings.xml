@@ -13,6 +13,7 @@
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
+    <string name="convert_to_staff"><u>Convert to Staff Account</u></string>
 
     <!-- Example General settings -->
     <string name="pref_header_general">General</string>

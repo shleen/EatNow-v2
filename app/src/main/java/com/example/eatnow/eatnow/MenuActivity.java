@@ -19,7 +19,9 @@ import com.example.eatnow.eatnow.Model.ItemClickListener;
 import com.example.eatnow.eatnow.Model.OrderItem;
 import com.example.eatnow.eatnow.ViewHolder.FoodItemViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -59,6 +61,15 @@ public class MenuActivity extends BaseActivity {
         recycler_menu.setLayoutManager(layout_manager);
 
         loadMenu();
+
+        // TODO: Remove temp test config
+        auth.getCurrentUser().getIdToken(false).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+            @Override
+            public void onSuccess(GetTokenResult getTokenResult) {
+                TextView textTest = (TextView) findViewById(R.id.textTest);
+                textTest.setText(getTokenResult.getClaims().get("role").toString());
+            }
+        });
     }
 
     private void loadMenu() {
