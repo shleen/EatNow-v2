@@ -43,32 +43,39 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
         Log.i("StrvvddWWtCpQmYnNkn4v7g", userList.get(position).get(0));
         holder.textUserEmail.setText(userList.get(position).get(0));
 
-        holder.lkConvertToStaff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(final View v) {
-                // Convert the selected user to staff
-                FirebaseFunctions functions = FirebaseFunctions.getInstance();
+        // Hide the 'Convert to Staff' link for staff
+        if (userList.get(position).get(1).equals("staff"))
+        { holder.lkConvertToStaff.setVisibility(View.GONE); }
+        else
+        {
+            // Add onclicklistener to the link
+            holder.lkConvertToStaff.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View v) {
+                    // Convert the selected user to staff
+                    FirebaseFunctions functions = FirebaseFunctions.getInstance();
 
-                Map<String, Object> data = new HashMap<>();
-                data.put("email", holder.textUserEmail.getText());
+                    Map<String, Object> data = new HashMap<>();
+                    data.put("email", holder.textUserEmail.getText());
 
-                functions.getHttpsCallable("grantStaff")
-                        .call(data)
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                // TODO: Handle failure
-                                Log.i("StrvvddWWtCpQmYnNkn4v7g", "sumthin died");
-                            }
-                        })
-                        .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
-                            @Override
-                            public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                                Toast.makeText(v.getContext(), "uuuu", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-            }
-        });
+                    functions.getHttpsCallable("grantStaff")
+                            .call(data)
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // TODO: Handle failure
+                                    Log.i("StrvvddWWtCpQmYnNkn4v7g", "sumthin died");
+                                }
+                            })
+                            .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+                                @Override
+                                public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                                    Toast.makeText(v.getContext(), "uuuu", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
+            });
+        }
     }
 
     @Override
