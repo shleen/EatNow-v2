@@ -16,18 +16,13 @@ import android.util.Log;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class AdminActivity extends AppCompatActivity {
-
-    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     public static UserAdapter user_adapter;
     public static UserAdapter staff_adapter;
