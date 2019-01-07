@@ -1,5 +1,5 @@
 package com.example.eatnow.eatnow;
-gi
+
 import android.widget.TextView;
 
 import com.example.eatnow.eatnow.Model.OrderItem;
