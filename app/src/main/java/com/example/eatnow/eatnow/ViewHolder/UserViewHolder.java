@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.example.eatnow.eatnow.R;
 
-public class UserViewHolder extends RecyclerView.ViewHolder {
+public class UserViewHolder extends RecyclerView.ViewHolder  {
     public TextView textUserEmail;
     public TextView lkConvertToStaff;
 

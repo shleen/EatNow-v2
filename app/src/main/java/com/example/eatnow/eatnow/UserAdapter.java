@@ -1,14 +1,24 @@
 package com.example.eatnow.eatnow;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.eatnow.eatnow.ViewHolder.UserViewHolder;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     private List<String> userList = new ArrayList<>();
@@ -31,6 +41,33 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
     @Override
     public void onBindViewHolder(final UserViewHolder holder, final int position) {
         holder.textUserEmail.setText(userList.get(position));
+
+        holder.lkConvertToStaff.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                // Convert the selected user to staff
+                FirebaseFunctions functions = FirebaseFunctions.getInstance();
+
+                Map<String, Object> data = new HashMap<>();
+                data.put("email", holder.textUserEmail.getText());
+
+                functions.getHttpsCallable("grantStaff")
+                        .call(data)
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // TODO: Handle failure
+                                Log.i("StrvvddWWtCpQmYnNkn4v7g", "sumthin died");
+                            }
+                        })
+                        .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+                            @Override
+                            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                                Toast.makeText(v.getContext(), "uuuu", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+            }
+        });
     }
 
     @Override
