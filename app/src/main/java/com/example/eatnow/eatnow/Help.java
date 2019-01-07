@@ -1,13 +1,23 @@
 package com.example.eatnow.eatnow;
 
+import android.content.Intent;
 import android.widget.TextView;
 
 import com.example.eatnow.eatnow.Model.OrderItem;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.common.collect.Iterables;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Help {
     // Returns the textual value of the given TextView

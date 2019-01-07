@@ -21,6 +21,7 @@ import com.google.firebase.functions.FirebaseFunctions;
 import com.google.firebase.functions.HttpsCallableResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -71,10 +72,31 @@ public class AdminActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
                     @Override
                     public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                        List<String> users = (List<String>) httpsCallableResult.getData();
+                        List<List<String>> all_users = (List<List<String>>) httpsCallableResult.getData();
+
+                        List<List<String>> users = new ArrayList<>();
+                        List<List<String>> staff = new ArrayList<>();
+
+                        for (List<String> u : all_users)
+                        {
+                            switch (u.get(1))
+                            {
+                                case "user":
+                                    users.add(u);
+                                    break;
+                                case "staff":
+                                    staff.add(u);
+                                    break;
+                                default:
+                                    break;
+                            }
+                        }
 
                         user_adapter = new UserAdapter(users);
                         recycler_users.setAdapter(user_adapter);
+
+                        staff_adapter = new UserAdapter(staff);
+                        recycler_staff.setAdapter(staff_adapter);
                     }
                 });
     }

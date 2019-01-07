@@ -21,12 +21,12 @@ import java.util.List;
 import java.util.Map;
 
 public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
-    private List<String> userList = new ArrayList<>();
+    private List<List<String>> userList = new ArrayList<>();
 
     public UserAdapter() {
     }
 
-    public UserAdapter(List<String> userList) {
+    public UserAdapter(List<List<String>> userList) {
         this.userList = userList;
     }
 
@@ -40,7 +40,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
 
     @Override
     public void onBindViewHolder(final UserViewHolder holder, final int position) {
-        holder.textUserEmail.setText(userList.get(position));
+        Log.i("StrvvddWWtCpQmYnNkn4v7g", userList.get(position).get(0));
+        holder.textUserEmail.setText(userList.get(position).get(0));
 
         holder.lkConvertToStaff.setOnClickListener(new View.OnClickListener() {
             @Override
