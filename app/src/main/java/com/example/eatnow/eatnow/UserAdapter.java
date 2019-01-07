@@ -71,6 +71,8 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
                                 @Override
                                 public void onSuccess(HttpsCallableResult httpsCallableResult) {
                                     Toast.makeText(v.getContext(), "uuuu", Toast.LENGTH_SHORT).show();
+
+                                    AdminActivity.loadUsers();
                                 }
                             });
                 }

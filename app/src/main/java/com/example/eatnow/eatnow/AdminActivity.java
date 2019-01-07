@@ -28,12 +28,11 @@ import java.util.Map;
 public class AdminActivity extends AppCompatActivity {
 
     FirebaseAuth auth = FirebaseAuth.getInstance();
-    FirebaseFunctions functions = FirebaseFunctions.getInstance();
 
-    UserAdapter user_adapter;
-    UserAdapter staff_adapter;
-    RecyclerView recycler_users;
-    RecyclerView recycler_staff;
+    public static UserAdapter user_adapter;
+    public static UserAdapter staff_adapter;
+    public static RecyclerView recycler_users;
+    public static RecyclerView recycler_staff;
     RecyclerView.LayoutManager layout_manager;
 
     @Override
@@ -59,7 +58,9 @@ public class AdminActivity extends AppCompatActivity {
         loadUsers();
     }
 
-    private void loadUsers() {
+    public static void loadUsers() {
+        FirebaseFunctions functions = FirebaseFunctions.getInstance();
+
         functions.getHttpsCallable("getAllUsers")
                 .call()
                 .addOnFailureListener(new OnFailureListener() {
