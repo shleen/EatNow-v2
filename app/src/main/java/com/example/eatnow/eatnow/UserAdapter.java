@@ -70,7 +70,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserViewHolder> {
                             .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
                                 @Override
                                 public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                                    Toast.makeText(v.getContext(), "uuuu", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(v.getContext(), "User converted to staff!", Toast.LENGTH_SHORT).show();
 
                                     AdminActivity.loadUsers();
                                 }
