@@ -61,15 +61,6 @@ public class MenuActivity extends BaseActivity {
         recycler_menu.setLayoutManager(layout_manager);
 
         loadMenu();
-
-        // TODO: Remove temp test config
-        auth.getCurrentUser().getIdToken(false).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
-            @Override
-            public void onSuccess(GetTokenResult getTokenResult) {
-                TextView textTest = (TextView) findViewById(R.id.textTest);
-                textTest.setText(getTokenResult.getClaims().get("role").toString());
-            }
-        });
     }
 
     private void loadMenu() {
