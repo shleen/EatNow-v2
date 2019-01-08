@@ -30,6 +30,37 @@ tools:context=".RobotActivity">
 
     </android.support.design.widget.AppBarLayout>
 
+    <TextView
+        android:id="@+id/sUpdateIP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/h2"
+        android:text="Update Robot IP"
+        android:layout_below="@id/app_bar_layout"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp" />
+
+    <EditText
+        android:id="@+id/textIP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sUpdateIP"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textIP"
+        android:text="Update IP"
+        android:textSize="@dimen/btn_font"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textAllCaps="false"
+        android:onClick="updateIP" />
+
 </RelativeLayout>
 
 <android.support.design.widget.NavigationView
