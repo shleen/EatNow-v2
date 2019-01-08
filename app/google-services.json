@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "179741279605-nheu96u2e5o49lka7o626efdtier98oe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.eatnow.eatnow",
+            "certificate_hash": "915cb061e8a9e890731d8e6e75d31877c63f0336"
+          }
+        },
+        {
           "client_id": "179741279605-s994d3bel517mfdqptbad2sat4nd1aue.apps.googleusercontent.com",
           "client_type": 3
         }
