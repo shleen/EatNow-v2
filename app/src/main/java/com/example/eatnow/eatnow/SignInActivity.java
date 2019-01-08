@@ -4,17 +4,21 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.auth.GetTokenResult;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -41,7 +45,7 @@ public class SignInActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         // TODO: Remove pre-filled fields
-        textEmail.setText("test@t.com");
+        textEmail.setText("super@admin.com");
         textPassword.setText("pass123");
     }
 
@@ -65,8 +69,8 @@ public class SignInActivity extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Logged in successfully.", Toast.LENGTH_SHORT).show();
                                 finish();
 
-                                Intent i = new Intent(getApplicationContext(), MenuActivity.class);
-                                startActivity(i);
+                                // Redirect user to appropriate page
+                                redirectSignIn();
                             }
                             else
                             { Toast.makeText(getApplicationContext(), "Incorrect credentials. Please try again.", Toast.LENGTH_SHORT).show(); }
@@ -75,7 +79,7 @@ public class SignInActivity extends AppCompatActivity {
         }
     }
 
-    private void addUser(){
+    private void addUser() {
         String name = textEmail.getText().toString().trim();
         String device_token = FirebaseInstanceId.getInstance().getInstanceId().toString();
 
@@ -86,6 +90,31 @@ public class SignInActivity extends AppCompatActivity {
         databaseUsers.child(id).setValue(users);
 
         //Toast.makeText(getApplicationContext(), "User added", Toast.LENGTH_SHORT).show();
+    }
+    private void redirectSignIn()
+    {
+        // Get user role & redirect accordingly
+        auth.getCurrentUser().getIdToken(false).addOnSuccessListener(new OnSuccessListener<GetTokenResult>() {
+            @Override
+            public void onSuccess(GetTokenResult getTokenResult) {
+                String role = "user";
+                if (getTokenResult.getClaims().get("role") != null ) { role = getTokenResult.getClaims().get("role").toString(); }
 
+                Intent i = new Intent();
+
+                switch (role)
+                {
+                    // TODO: case "staff"
+                    case "user":
+                        i = new Intent(getApplicationContext(), MenuActivity.class);
+                        break;
+                    case "superadmin":
+                        i = new Intent(getApplicationContext(), AdminActivity.class);
+                        break;
+                }
+
+                startActivity(i);
+            }
+        });
     }
 }
