@@ -12,7 +12,7 @@ import org.w3c.dom.Text;
 public class QRActivity extends BaseActivity {
 
     public static TextView displayResult;
-    Button QRScanner;
+    private Button QRScanner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class QRActivity extends BaseActivity {
         QRScanner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getApplicationContext(), ScanFunctionActivity.class);
+                Intent i = new Intent(QRActivity.this, ScanFunctionActivity.class);
                 startActivity(i);
             }
         });
