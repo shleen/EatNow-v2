@@ -3,14 +3,14 @@ package com.example.eatnow.eatnow.Model;
 public class CategoryItem {
 
     public String name;
-    public int quantity;
+    public int qty;
 
     public double price;
     public int stall_id;
 
-    public CategoryItem(String name, int quantity, double price, int stall_id) {
+    public CategoryItem(String name, int qty, double price, int stall_id) {
         this.name = name;
-        this.quantity = quantity;
+        this.qty = qty;
         this.price = price;
         this.stall_id = stall_id;
     }
@@ -43,10 +43,10 @@ public class CategoryItem {
     }
 
     public Integer getQuantity() {
-        return quantity;
+        return qty;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void setQuantity(int qty) {
+        this.qty = qty;
     }
 }
