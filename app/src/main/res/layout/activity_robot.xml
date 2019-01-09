@@ -61,6 +61,43 @@ tools:context=".RobotActivity">
         android:textAllCaps="false"
         android:onClick="updateIP" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@id/textIP"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="test@tcom"
+        android:hint="Order ID"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/textOrderID"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:hint="Collection Point ID"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/textCollectionPointID"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textIP"
+        android:text="Ping Robot"
+        android:textSize="@dimen/btn_font"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textAllCaps="false"
+        android:onClick="pingRobot" />
+
 </RelativeLayout>
 
 <android.support.design.widget.NavigationView
