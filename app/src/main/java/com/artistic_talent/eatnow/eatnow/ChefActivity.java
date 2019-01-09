@@ -48,14 +48,30 @@ public class ChefActivity extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        ArrayList<CategoryItem> item_list = new ArrayList<>();
+
                         Iterable<DataSnapshot> users_processing_orders = dataSnapshot.getChildren();
 
-                        for (DataSnapshot c : users_processing_orders)
+                        for (DataSnapshot all_orders : users_processing_orders)
                         {
-                            // c = a specific user's processing orders
-                            // Iterable<DataSnapshot> us
-                            Log.i("StrvvddWWtCpQmYnNkn4v7g", c.toString());
+                            Iterable<DataSnapshot> user_orders = all_orders.getChildren();
+
+                            for (DataSnapshot order : user_orders)
+                            {
+                                Iterable<DataSnapshot> order_items = order.getChildren();
+
+                                for (DataSnapshot order_item : order_items)
+                                {
+                                    item_list.add(new CategoryItem(order_item.child("name").getValue().toString(),
+                                                                   Integer.parseInt(order_item.child("qty").getValue().toString()),
+                                                                   Double.parseDouble(order_item.child("price").getValue().toString()),
+                                                                   Integer.parseInt(order_item.child("stall_id").getValue().toString())));
+
+                                }
+                            }
                         }
+
+                        Log.i("StrvvddWWtCpQmYnNkn4v7g", Integer.toString(item_list.size()));
                         //Log.i("StrvvddWWtCpQmYnNkn4v7g", dataSnapshot.toString());
                         //Get map of users in datasnapshot
                         collectNamenQty((Map<Integer,Object>) dataSnapshot.getValue());
