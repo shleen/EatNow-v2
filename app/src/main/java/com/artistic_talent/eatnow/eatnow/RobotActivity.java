@@ -91,6 +91,10 @@ public class RobotActivity extends BaseActivity {
                         .addFormDataPart("order_id", orderID)
                         .addFormDataPart("collection_point_id", collectionPointID)
                         .build();
+//                        .addFormDataPart("storage", "2")
+//                        .addFormDataPart("level", "2")
+//                        .addFormDataPart("collection", "1")
+//                        .build();
 
                 try {
                     post("http://" + ip, body, new Callback() {

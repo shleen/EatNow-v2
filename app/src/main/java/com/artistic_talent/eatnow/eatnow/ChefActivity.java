@@ -53,9 +53,10 @@ public class ChefActivity extends AppCompatActivity {
                         for (DataSnapshot c : users_processing_orders)
                         {
                             // c = a specific user's processing orders
-                            //Iterable<DataSnapshot>
+                            // Iterable<DataSnapshot> us
+                            Log.i("StrvvddWWtCpQmYnNkn4v7g", c.toString());
                         }
-                        Log.i("StrvvddWWtCpQmYnNkn4v7g", dataSnapshot.toString());
+                        //Log.i("StrvvddWWtCpQmYnNkn4v7g", dataSnapshot.toString());
                         //Get map of users in datasnapshot
                         collectNamenQty((Map<Integer,Object>) dataSnapshot.getValue());
                     }
