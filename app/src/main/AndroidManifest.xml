@@ -12,29 +12,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name="com.artistic_talent.eatnow.eatnow.MainActivity">
+        tools:ignore="GoogleAppIndexingWarning"
+        android:usesCleartextTraffic="true">
+
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.artistic_talent.eatnow.eatnow.SignInActivity" />
-        <activity android:name="com.artistic_talent.eatnow.eatnow.SignUpActivity" />
+        <activity android:name=".SignInActivity" />
+        <activity android:name=".SignUpActivity" />
         <activity
-            android:name="com.artistic_talent.eatnow.eatnow.MenuActivity"
+            android:name=".MenuActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
         <activity
-            android:name="com.artistic_talent.eatnow.eatnow.CartActivity"
+            android:name=".CartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PaymentActivity" />
+        <activity android:name=".ChefActivity" />
         <activity
-            android:name="com.artistic_talent.eatnow.eatnow.BaseActivity"
+            android:name=".BaseActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.artistic_talent.eatnow.eatnow.PaymentActivity" />
-        <activity android:name="com.artistic_talent.eatnow.eatnow.AdminActivity" />
-        <activity android:name="com.artistic_talent.eatnow.eatnow.RobotActivity" />
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".RobotActivity" />
     </application>
 
 </manifest>

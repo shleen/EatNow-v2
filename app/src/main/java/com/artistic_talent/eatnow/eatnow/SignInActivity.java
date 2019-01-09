@@ -80,6 +80,9 @@ public class SignInActivity extends AppCompatActivity {
                     case "user":
                         i = new Intent(getApplicationContext(), MenuActivity.class);
                         break;
+                    case "staff":
+                        i = new Intent(getApplicationContext(), ChefActivity.class);
+                        break;
                     case "superadmin":
                         i = new Intent(getApplicationContext(), AdminActivity.class);
                         break;

@@ -19,6 +19,7 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -85,14 +86,22 @@ public class RobotActivity extends BaseActivity {
                 String collectionPointID = textCollectionPointID.getText().toString();
 
                 // send the httprequest
-                String body = "{'order_id': '" + orderID + "," +
-                              "'collection_point_id': '" + collectionPointID + "'}";
+                RequestBody body = new MultipartBody.Builder()
+                        .setType(MultipartBody.FORM)
+                        .addFormDataPart("order_id", orderID)
+                        .addFormDataPart("collection_point_id", collectionPointID)
+                        .build();
+//                        .addFormDataPart("storage", "2")
+//                        .addFormDataPart("level", "2")
+//                        .addFormDataPart("collection", "1")
+//                        .build();
 
                 try {
-                    post("https://" + ip, body, new Callback() {
+                    post("http://" + ip, body, new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {
                             // TODO: Handle failure
+                            Log.i("StrvvddWWtCpQmYnNkn4v7g", e.getMessage());
                         }
 
                         @Override
@@ -104,6 +113,7 @@ public class RobotActivity extends BaseActivity {
 
                             } else {
                                 // TODO: Handle request not successful
+                                Log.i("StrvvddWWtCpQmYnNkn4v7g", "failed!");
                             }
                         }
                     });
@@ -119,12 +129,12 @@ public class RobotActivity extends BaseActivity {
 
             }
 
-            Call post(String url, String json, Callback callback) throws IOException {
-                RequestBody body = RequestBody.create(JSON, json);
+            Call post(String url, RequestBody body, Callback callback) throws IOException {
                 Request request = new Request.Builder()
                         .url(url)
                         .post(body)
                         .build();
+
             Call call = client.newCall(request);
             call.enqueue(callback);
             return call;
