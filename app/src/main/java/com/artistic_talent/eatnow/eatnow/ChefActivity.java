@@ -4,12 +4,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.artistic_talent.eatnow.eatnow.Model.CategoryItem;
-import com.artistic_talent.eatnow.eatnow.Model.ItemClickListener;
-import com.artistic_talent.eatnow.eatnow.Model.OrderItem;
 import com.artistic_talent.eatnow.eatnow.ViewHolder.ChefItemViewHolder;
-import com.artistic_talent.eatnow.eatnow.ViewHolder.FoodItemViewHolder;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,46 +17,45 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
-import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 public class ChefActivity extends AppCompatActivity {
 
-    RecyclerView recyclerView;
-    DatabaseReference databaseReference;
-    //FirebaseRecyclerOptions<CategoryItem> options;
-    FirebaseRecyclerAdapter<CategoryItem,ChefItemViewHolder> adapter;
     FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
-    //FirebaseAuth auth = FirebaseAuth.getInstance();
-    //FirebaseDatabase database = FirebaseDatabase.getInstance();
-    //DatabaseReference ref  = database.getReference("orders/completed/test@tcom/0");
-
+    RecyclerView recyclerView;
+    DatabaseReference ref;
+    FirebaseRecyclerAdapter<CategoryItem,ChefItemViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chef);
-        databaseReference = FirebaseDatabase.getInstance().getReference("orders/processing/test@tcom/0");
+        super.onCreate(savedInstanceState);
+
+        ref = database.getReference("orders/processing");
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layout_manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layout_manager);
 
-
         loadOrders();
-
-
     }
+
     private void loadOrders(){
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("test@tcom");
         ref.addListenerForSingleValueEvent(
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        Iterable<DataSnapshot> users_processing_orders = dataSnapshot.getChildren();
+
+                        for (DataSnapshot c : users_processing_orders)
+                        {
+                            // c = a specific user's processing orders
+                            //Iterable<DataSnapshot>
+                        }
+                        Log.i("StrvvddWWtCpQmYnNkn4v7g", dataSnapshot.toString());
                         //Get map of users in datasnapshot
                         collectNamenQty((Map<Integer,Object>) dataSnapshot.getValue());
                     }
@@ -68,12 +65,11 @@ public class ChefActivity extends AppCompatActivity {
                         //handle databaseError
                     }
                 });
-        FirebaseRecyclerAdapter<CategoryItem, ChefItemViewHolder> adapter = new FirebaseRecyclerAdapter<CategoryItem, ChefItemViewHolder>(CategoryItem.class, R.layout.layout_chef_item, ChefItemViewHolder.class, databaseReference) {
+        FirebaseRecyclerAdapter<CategoryItem, ChefItemViewHolder> adapter = new FirebaseRecyclerAdapter<CategoryItem, ChefItemViewHolder>(CategoryItem.class, R.layout.layout_chef_item, ChefItemViewHolder.class, ref) {
             @Override
             protected void populateViewHolder(ChefItemViewHolder viewHolder, CategoryItem model, int position) {
                 viewHolder.t1.setText(model.getName());
                 viewHolder.t2.setText(Integer.toString(model.getQuantity()));
-
             }
         };
         recyclerView.setAdapter(adapter);
