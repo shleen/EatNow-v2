@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.eatnow.eatnow">
+    package="com.artistic_talent.eatnow.eatnow">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,31 +13,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
 
+        <activity android:name="com.artistic_talent.eatnow.eatnow.MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".SignUpActivity" />
+        <activity android:name="com.artistic_talent.eatnow.eatnow.SignInActivity" />
+        <activity android:name="com.artistic_talent.eatnow.eatnow.SignUpActivity" />
         <activity
-            android:name=".MenuActivity"
+            android:name="com.artistic_talent.eatnow.eatnow.MenuActivity"
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity
             android:name=".CartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".BaseActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PaymentActivity" />
-        <activity android:name=".ChefActivity" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
+        <activity android:name="com.artistic_talent.eatnow.eatnow.ChefActivity" />
+        <activity
+            android:name="com.artistic_talent.eatnow.eatnow.BaseActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="com.artistic_talent.eatnow.eatnow.AdminActivity" />
+        <activity android:name="com.artistic_talent.eatnow.eatnow.RobotActivity" />
     </application>
 
 </manifest>
