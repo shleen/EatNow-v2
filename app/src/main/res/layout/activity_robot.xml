@@ -59,7 +59,58 @@ tools:context=".RobotActivity">
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:textAllCaps="false"
-        android:onClick="updateIP" />
+        android:onClick="updateIP"
+        android:id="@+id/btnUpdateIP"
+        android:layout_marginBottom="16dp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_below="@id/btnUpdateIP"/>
+
+    <TextView
+        android:id="@+id/sPingRobot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/h2"
+        android:text="Ping Robot"
+        android:layout_below="@id/btnUpdateIP"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="test@tcom"
+        android:hint="Order ID"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/textOrderID"
+        android:layout_below="@id/sPingRobot"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:hint="Collection Point ID"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:id="@+id/textCollectionPointID"
+        android:layout_below="@id/textOrderID"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textCollectionPointID"
+        android:text="Ping Robot"
+        android:textSize="@dimen/btn_font"
+        android:paddingTop="16dp"
+        android:paddingBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textAllCaps="false"
+        android:onClick="pingRobot" />
 
 </RelativeLayout>
 
