@@ -34,7 +34,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PaymentActivity" />
         <activity android:name=".AdminActivity" />
-        <activity android:name=".RobotActivity"></activity>
+        <activity android:name=".RobotActivity" />
     </application>
 
 </manifest>
