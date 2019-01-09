@@ -9,6 +9,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -40,11 +43,11 @@ dependencies {
 
     implementation 'commons-validator:commons-validator:1.6'
     implementation 'com.craftman.cardform:cardform:0.0.2'
+    //QR scanner dependencies
+    implementation 'info.androidhive:barcode-reader:1.1.5'
+    implementation 'com.google.android.gms:play-services-vision:16.2.0'
 
     api 'com.google.guava:guava:27.0.1-android'
-
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
-    implementation 'me.dm7.barcodescanner:zxing:1.9'
 }
 
 apply plugin: 'com.google.gms.google-services'

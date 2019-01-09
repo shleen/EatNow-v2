@@ -1,33 +1,46 @@
 package com.example.eatnow.eatnow;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.util.Log;
+import android.util.SparseArray;
+import com.google.android.gms.vision.barcode.Barcode;
+import java.util.List;
 
-import org.w3c.dom.Text;
+import info.androidhive.barcode.BarcodeReader;
 
-public class QRActivity extends BaseActivity {
 
-    public static TextView displayResult;
-    private Button QRScanner;
+public class QRActivity extends AppCompatActivity implements BarcodeReader.BarcodeReaderListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(R.layout.activity_qr);
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_qr);
+    }
+    @Override
+    public void onScanned(Barcode barcode) {
+        // single barcode scanned
+        Log.i("Display Result", barcode.displayValue);
+    }
 
-        displayResult = (TextView)findViewById(R.id.txt_displayResult);
-        QRScanner = (Button)findViewById(R.id.btn_QRScanner);
+    @Override
+    public void onScannedMultiple(List<Barcode> list) {
+        // multiple barcodes scanned
+    }
 
-        QRScanner.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(QRActivity.this, ScanFunctionActivity.class);
-                startActivity(i);
-            }
-        });
+    @Override
+    public void onBitmapScanned(SparseArray<Barcode> sparseArray) {
+        // barcode scanned from bitmap image
+    }
+
+    @Override
+    public void onScanError(String s) {
+        // scan error
+    }
+
+    @Override
+    public void onCameraPermissionDenied() {
+        // camera permission denied
+        finish();
     }
 }
