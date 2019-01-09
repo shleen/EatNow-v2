@@ -7,12 +7,16 @@ Allows the superadmin to grantStaff/ grantUser
 
 package com.example.eatnow.eatnow;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,18 +26,46 @@ import com.google.firebase.functions.HttpsCallableResult;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminActivity extends AppCompatActivity {
+public class AdminActivity extends BaseActivity {
 
     public static UserAdapter user_adapter;
     public static UserAdapter staff_adapter;
     public static RecyclerView recycler_users;
     public static RecyclerView recycler_staff;
     RecyclerView.LayoutManager layout_manager;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+        super.onCreate(savedInstanceState);
+
+        // Configure navigation
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        // Handle navigation view item clicks here.
+                        int id = item.getItemId();
+
+                        Intent i = new Intent();
+
+                        if (id == R.id.nav_users) {
+                            i = new Intent(getApplicationContext(), AdminActivity.class);
+                        } else if (id == R.id.nav_robot) {
+                            i = new Intent(getApplicationContext(), RobotActivity.class);
+                        } else if (id == R.id.nav_logout) {
+                            signOut();
+                            i = new Intent(getApplicationContext(), MainActivity.class);
+                        }
+
+                        startActivity(i);
+
+                        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                        drawer.closeDrawer(GravityCompat.START);
+                        return true;
+                    }
+                });
 
         // Display users
         recycler_users = (RecyclerView) findViewById(R.id.recycler_users);

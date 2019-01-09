@@ -9,4 +9,5 @@
     <!-- Non-default margins, not per the Android Design guidelines. -->
     <dimen name="btn_font">20dp</dimen>
     <dimen name="h1">32dp</dimen>
+    <dimen name="h2">28dp</dimen>
 </resources>
