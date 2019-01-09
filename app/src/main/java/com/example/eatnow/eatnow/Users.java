@@ -9,9 +9,8 @@ public class Users {
     public Users(){}
 
 
-    public Users(String userId, String userName, String userDeviceToken){
+    public Users(String userId, String userDeviceToken){
         this.userId = userId;
-        this.userName = userName;
         this.userDeviceToken = userDeviceToken;
     }
 
@@ -19,9 +18,6 @@ public class Users {
         return userId;
     }
 
-    public String getUserName() {
-        return userName;
-    }
 
     public String getUserDeviceToken() {
         return userDeviceToken;

@@ -33,7 +33,8 @@
             android:name=".BaseActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PaymentActivity" />
-        <activity android:name=".AdminActivity"></activity>
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".ChefConfirmation"></activity>
     </application>
 
 </manifest>
