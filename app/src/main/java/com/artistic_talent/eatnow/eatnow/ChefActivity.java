@@ -1,9 +1,14 @@
 package com.artistic_talent.eatnow.eatnow;
 
+import android.content.Intent;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MenuItem;
 
 import com.artistic_talent.eatnow.eatnow.Model.CategoryItem;
 import com.artistic_talent.eatnow.eatnow.ViewHolder.ChefItemViewHolder;
@@ -18,18 +23,44 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-public class ChefActivity extends AppCompatActivity {
+public class ChefActivity extends BaseActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
+    DatabaseReference ref;
 
     RecyclerView recyclerView;
-    DatabaseReference ref;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_chef);
         super.onCreate(savedInstanceState);
+
+        // Configure navigation
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        // Handle navigation view item clicks here.
+                        int id = item.getItemId();
+
+                        Intent i = new Intent();
+
+                        if (id == R.id.nav_orders) {
+                            i = new Intent(getApplicationContext(), ChefActivity.class);
+                        } else if (id == R.id.nav_logout) {
+                            signOut();
+                            i = new Intent(getApplicationContext(), MainActivity.class);
+                        }
+
+                        startActivity(i);
+
+                        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                        drawer.closeDrawer(GravityCompat.START);
+                        return true;
+                    }
+                });
 
         ref = database.getReference("orders/processing");
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
