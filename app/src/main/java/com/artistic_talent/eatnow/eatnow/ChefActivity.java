@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 
 import com.artistic_talent.eatnow.eatnow.Model.CategoryItem;
@@ -101,6 +102,11 @@ public class ChefActivity extends BaseActivity {
 
                         OrderItemAdapter order_item_adapter = new OrderItemAdapter(item_list, getApplicationContext());
                         recyclerView.setAdapter(order_item_adapter);
+
+                        SwipeController swipeController = new SwipeController();
+
+                        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
+                        itemTouchhelper.attachToRecyclerView(recyclerView);
                     }
 
                     @Override
