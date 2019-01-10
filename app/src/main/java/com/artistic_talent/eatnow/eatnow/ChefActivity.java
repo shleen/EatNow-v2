@@ -1,10 +1,14 @@
 package com.artistic_talent.eatnow.eatnow;
 
+import android.content.Intent;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.view.MenuItem;
 
 import com.artistic_talent.eatnow.eatnow.Model.CategoryItem;
 import com.artistic_talent.eatnow.eatnow.ViewHolder.ChefItemViewHolder;
@@ -18,21 +22,45 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Map;
 
-public class ChefActivity extends AppCompatActivity {
+public class ChefActivity extends BaseActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
+    DatabaseReference ref;
 
     RecyclerView recyclerView;
-    DatabaseReference ref;
-    FirebaseRecyclerAdapter<CategoryItem,ChefItemViewHolder> adapter;
+    NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setContentView(R.layout.activity_chef);
         super.onCreate(savedInstanceState);
+
+        // Configure navigation
+        navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    public boolean onNavigationItemSelected(MenuItem item) {
+                        // Handle navigation view item clicks here.
+                        int id = item.getItemId();
+
+                        Intent i = new Intent();
+
+                        if (id == R.id.nav_orders) {
+                            i = new Intent(getApplicationContext(), ChefActivity.class);
+                        } else if (id == R.id.nav_logout) {
+                            signOut();
+                            i = new Intent(getApplicationContext(), MainActivity.class);
+                        }
+
+                        startActivity(i);
+
+                        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                        drawer.closeDrawer(GravityCompat.START);
+                        return true;
+                    }
+                });
 
         ref = database.getReference("orders/processing");
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
@@ -48,17 +76,31 @@ public class ChefActivity extends AppCompatActivity {
                 new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        ArrayList<CategoryItem> item_list = new ArrayList<>();
+
                         Iterable<DataSnapshot> users_processing_orders = dataSnapshot.getChildren();
 
-                        for (DataSnapshot c : users_processing_orders)
+                        for (DataSnapshot all_orders : users_processing_orders)
                         {
-                            // c = a specific user's processing orders
-                            // Iterable<DataSnapshot> us
-                            Log.i("StrvvddWWtCpQmYnNkn4v7g", c.toString());
+                            Iterable<DataSnapshot> user_orders = all_orders.getChildren();
+
+                            for (DataSnapshot order : user_orders)
+                            {
+                                Iterable<DataSnapshot> order_items = order.getChildren();
+
+                                for (DataSnapshot order_item : order_items)
+                                {
+                                    item_list.add(new CategoryItem(order_item.child("name").getValue().toString(),
+                                                                   Integer.parseInt(order_item.child("qty").getValue().toString()),
+                                                                   Double.parseDouble(order_item.child("price").getValue().toString()),
+                                                                   Integer.parseInt(order_item.child("stall_id").getValue().toString())));
+
+                                }
+                            }
                         }
-                        //Log.i("StrvvddWWtCpQmYnNkn4v7g", dataSnapshot.toString());
-                        //Get map of users in datasnapshot
-                        collectNamenQty((Map<Integer,Object>) dataSnapshot.getValue());
+
+                        OrderItemAdapter order_item_adapter = new OrderItemAdapter(item_list, getApplicationContext());
+                        recyclerView.setAdapter(order_item_adapter);
                     }
 
                     @Override
@@ -66,38 +108,5 @@ public class ChefActivity extends AppCompatActivity {
                         //handle databaseError
                     }
                 });
-        FirebaseRecyclerAdapter<CategoryItem, ChefItemViewHolder> adapter = new FirebaseRecyclerAdapter<CategoryItem, ChefItemViewHolder>(CategoryItem.class, R.layout.layout_chef_item, ChefItemViewHolder.class, ref) {
-            @Override
-            protected void populateViewHolder(ChefItemViewHolder viewHolder, CategoryItem model, int position) {
-                viewHolder.t1.setText(model.getName());
-                viewHolder.t2.setText(Integer.toString(model.getQuantity()));
-            }
-        };
-        recyclerView.setAdapter(adapter);
-
-
-
-
     }
-    private void collectNamenQty(Map<Integer,Object> users) {
-
-        ArrayList<Integer> ItemList = new ArrayList<>();
-
-        ArrayList<String> nameList = new ArrayList<>();
-        ArrayList<Integer> qtyList = new ArrayList<>();
-
-        //iterate through each user, ignoring their UID
-        for (Map.Entry<Integer,Object> entry : users.entrySet()){
-
-            //Get user map
-            Map singleUser = (Map)entry.getValue();
-            //Get phone field and append to list
-            nameList.add((String) singleUser.get("name"));
-            qtyList.add((Integer) singleUser.get("qty"));
-        }
-
-        System.out.println(nameList.toString());
-        System.out.println(qtyList.toString());
-    }
-
 }
