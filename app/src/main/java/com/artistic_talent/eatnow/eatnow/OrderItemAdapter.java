@@ -46,5 +46,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder>
     public void onItemDismiss(int position) {
         mArray.remove(position);
         notifyItemRemoved(position);
+
+        // TODO: Handle item completed
     }
 }
