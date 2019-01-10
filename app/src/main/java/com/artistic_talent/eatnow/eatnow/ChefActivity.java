@@ -3,7 +3,7 @@ package com.artistic_talent.eatnow.eatnow;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;g
+import android.support.v7.widget.RecyclerView;
 
 import com.artistic_talent.eatnow.eatnow.Model.CategoryItem;
 import com.artistic_talent.eatnow.eatnow.ViewHolder.ChefItemViewHolder;
@@ -25,7 +25,6 @@ public class ChefActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
     DatabaseReference ref;
-    FirebaseRecyclerAdapter<CategoryItem,ChefItemViewHolder> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
