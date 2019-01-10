@@ -11,7 +11,8 @@ import com.artistic_talent.eatnow.eatnow.ViewHolder.OrderItemViewHolder;
 
 import java.util.ArrayList;
 
-public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder> {
+public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder>
+    implements ItemTouchHelperAdapter {
     Context mContext;
     ArrayList<CategoryItem> mArray;
 
@@ -39,5 +40,11 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder> 
     public int getItemCount() {
 
         return mArray.size();
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        mArray.remove(position);
+        notifyItemRemoved(position);
     }
 }

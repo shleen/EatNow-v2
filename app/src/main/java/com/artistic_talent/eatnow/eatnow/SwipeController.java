@@ -6,6 +6,12 @@ import android.support.v7.widget.helper.ItemTouchHelper.Callback;
 import static android.support.v7.widget.helper.ItemTouchHelper.*;
 
 public class SwipeController  extends Callback {
+    private final ItemTouchHelperAdapter mAdapter;
+
+    public SwipeController(ItemTouchHelperAdapter adapter) {
+        mAdapter = adapter;
+    }
+
     @Override
     public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
         return makeMovementFlags(0, RIGHT);
@@ -18,6 +24,6 @@ public class SwipeController  extends Callback {
 
     @Override
     public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-
+        mAdapter.onItemDismiss(viewHolder.getAdapterPosition());
     }
 }

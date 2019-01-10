@@ -65,7 +65,6 @@ public class ChefActivity extends BaseActivity {
 
         ref = database.getReference("orders/processing");
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layout_manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layout_manager);
 
@@ -103,7 +102,7 @@ public class ChefActivity extends BaseActivity {
                         OrderItemAdapter order_item_adapter = new OrderItemAdapter(item_list, getApplicationContext());
                         recyclerView.setAdapter(order_item_adapter);
 
-                        SwipeController swipeController = new SwipeController();
+                        SwipeController swipeController = new SwipeController(order_item_adapter);
 
                         ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
                         itemTouchhelper.attachToRecyclerView(recyclerView);
