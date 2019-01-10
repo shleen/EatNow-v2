@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.artistic_talent.eatnow.eatnow.Model.CategoryItem;
-import com.artistic_talent.eatnow.eatnow.R;
+import com.artistic_talent.eatnow.eatnow.Model.CategoryItem;;
 import com.artistic_talent.eatnow.eatnow.ViewHolder.OrderItemViewHolder;
 
 import java.util.ArrayList;
 
-public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder> {
+public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder>
+    implements ItemTouchHelperAdapter {
     Context mContext;
     ArrayList<CategoryItem> mArray;
 
@@ -32,7 +32,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder> 
     @Override
     public void onBindViewHolder(OrderItemViewHolder holder, int position) {
         holder.txtOrderItemName.setText(mArray.get(position).name);
-        holder.txtOrderItemPrice.setText(Double.toString(mArray.get(position).price));
+        holder.txtOrderItemPrice.setVisibility(View.INVISIBLE);
         holder.txtOrderItemQty.setText(Integer.toString(mArray.get(position).qty));
     }
 
@@ -40,5 +40,13 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder> 
     public int getItemCount() {
 
         return mArray.size();
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+        mArray.remove(position);
+        notifyItemRemoved(position);
+
+        // TODO: Handle item completed
     }
 }

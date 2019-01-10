@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.MenuItem;
 
 import com.artistic_talent.eatnow.eatnow.Model.CategoryItem;
-import com.artistic_talent.eatnow.eatnow.ViewHolder.ChefItemViewHolder;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -64,7 +62,6 @@ public class ChefActivity extends BaseActivity {
 
         ref = database.getReference("orders/processing");
         recyclerView = (RecyclerView)findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layout_manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layout_manager);
 
@@ -101,6 +98,11 @@ public class ChefActivity extends BaseActivity {
 
                         OrderItemAdapter order_item_adapter = new OrderItemAdapter(item_list, getApplicationContext());
                         recyclerView.setAdapter(order_item_adapter);
+
+                        SwipeController swipeController = new SwipeController(order_item_adapter);
+
+                        ItemTouchHelper itemTouchhelper = new ItemTouchHelper(swipeController);
+                        itemTouchhelper.attachToRecyclerView(recyclerView);
                     }
 
                     @Override
