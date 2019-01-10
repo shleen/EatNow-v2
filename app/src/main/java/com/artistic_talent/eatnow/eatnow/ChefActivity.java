@@ -3,8 +3,7 @@ package com.artistic_talent.eatnow.eatnow;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import android.support.v7.widget.RecyclerView;g
 
 import com.artistic_talent.eatnow.eatnow.Model.CategoryItem;
 import com.artistic_talent.eatnow.eatnow.ViewHolder.ChefItemViewHolder;
@@ -18,7 +17,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class ChefActivity extends AppCompatActivity {
 
@@ -71,10 +69,8 @@ public class ChefActivity extends AppCompatActivity {
                             }
                         }
 
-                        Log.i("StrvvddWWtCpQmYnNkn4v7g", Integer.toString(item_list.size()));
-                        //Log.i("StrvvddWWtCpQmYnNkn4v7g", dataSnapshot.toString());
-                        //Get map of users in datasnapshot
-                        collectNamenQty((Map<Integer,Object>) dataSnapshot.getValue());
+                        OrderItemAdapter order_item_adapter = new OrderItemAdapter(item_list, getApplicationContext());
+                        recyclerView.setAdapter(order_item_adapter);
                     }
 
                     @Override
@@ -82,38 +78,5 @@ public class ChefActivity extends AppCompatActivity {
                         //handle databaseError
                     }
                 });
-        FirebaseRecyclerAdapter<CategoryItem, ChefItemViewHolder> adapter = new FirebaseRecyclerAdapter<CategoryItem, ChefItemViewHolder>(CategoryItem.class, R.layout.layout_chef_item, ChefItemViewHolder.class, ref) {
-            @Override
-            protected void populateViewHolder(ChefItemViewHolder viewHolder, CategoryItem model, int position) {
-                viewHolder.t1.setText(model.getName());
-                viewHolder.t2.setText(Integer.toString(model.getQuantity()));
-            }
-        };
-        recyclerView.setAdapter(adapter);
-
-
-
-
     }
-    private void collectNamenQty(Map<Integer,Object> users) {
-
-        ArrayList<Integer> ItemList = new ArrayList<>();
-
-        ArrayList<String> nameList = new ArrayList<>();
-        ArrayList<Integer> qtyList = new ArrayList<>();
-
-        //iterate through each user, ignoring their UID
-        for (Map.Entry<Integer,Object> entry : users.entrySet()){
-
-            //Get user map
-            Map singleUser = (Map)entry.getValue();
-            //Get phone field and append to list
-            nameList.add((String) singleUser.get("name"));
-            qtyList.add((Integer) singleUser.get("qty"));
-        }
-
-        System.out.println(nameList.toString());
-        System.out.println(qtyList.toString());
-    }
-
 }
