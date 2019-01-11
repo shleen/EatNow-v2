@@ -7,7 +7,7 @@ public class Users {
     String userDeviceToken;
 
     public Users(){}
-
+    
 
     public Users(String userId, String userDeviceToken){
         this.userId = userId;
