@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:179741279605:android:39038fc57ef4c563",
         "android_client_info": {
-          "package_name": "com.example.eatnow.eatnow"
+          "package_name": "com.artistic_talent.eatnow.eatnow"
         }
       },
       "oauth_client": [
@@ -18,7 +18,7 @@
           "client_id": "179741279605-l6qlfujah0ursa5asghudje07n72nqj7.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.eatnow.eatnow",
+            "package_name": "com.artistic_talent.eatnow.eatnow",
             "certificate_hash": "45939b4da6d83ee47e5d9d606eb86ac0d3713274"
           }
         },

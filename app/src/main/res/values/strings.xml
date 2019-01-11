@@ -10,6 +10,8 @@
     <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="name">name</string>
+    <string name="quantity">quantity</string>
     <string name="title_activity_settings">Settings</string>
     <string name="convert_to_staff_u"><u>Convert to Staff</u></string>
 

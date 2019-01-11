@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.eatnow.eatnow">
+    package="com.artistic_talent.eatnow.eatnow">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,7 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        android:usesCleartextTraffic="true">
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,16 +27,18 @@
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
         <activity
             android:name=".CartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PaymentActivity" />
+        <activity android:name=".ChefActivity" />
         <activity
             android:name=".BaseActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PaymentActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />g
         <activity android:name=".AdminActivity" />
-        <activity android:name=".ChefConfirmation"></activity>
+        <activity android:name=".RobotActivity" />
     </application>
 
 </manifest>
