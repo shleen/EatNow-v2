@@ -1,5 +1,6 @@
 package com.artistic_talent.eatnow.eatnow;
 
+import android.util.Log;
 import android.widget.TextView;
 
 import com.artistic_talent.eatnow.eatnow.Model.OrderItem;
@@ -66,10 +67,8 @@ public class Help {
 
     // Pending order to processing
     public static void moveToProcessing(final DatabaseReference fromPath, final DatabaseReference toPath, final String key) {
-        fromPath.child(key).addListenerForSingleValueEvent(
+        fromPath.addListenerForSingleValueEvent(
                 new ValueEventListener() {
-                    // dataSnapshot holds the key and the value at the "fromPath".
-                    // Let's move it to the toPath. This operation duplicates the key/value pair at the fromPath to the toPath
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Iterable<DataSnapshot> children = dataSnapshot.getChildren();
@@ -83,12 +82,47 @@ public class Help {
                                                 // Success!
 
                                                 // Remove the original value
-                                                fromPath.child(key).setValue(null);
+                                                Log.i("StrvvddWWtCpQmYnNkn4v7g", fromPath.toString());
+                                                fromPath.getParent().setValue(null);
                                             } else {
                                                 // Operation failed
                                             }
                                         }
                                     });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Database error
+                    }
+                });
+    }
+
+    // Processing order to completed
+    public static void moveToCompleted(final DatabaseReference fromPath, final DatabaseReference toPath, final String key, final String order_id) {
+        fromPath.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                        for (DataSnapshot c : children) {
+                            toPath.child(key)
+                                  .child(c.getKey())
+                                  .setValue(c.getValue(), new DatabaseReference.CompletionListener() {
+                                        @Override
+                                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                          if (databaseError == null) {
+                                              // Success!
+
+                                              // Remove the original value
+                                              fromPath.child(key).setValue(null);
+                                          } else {
+                                              // Operation failed
+                                          }
+                                      }
+                                  });
                         }
                     }
 

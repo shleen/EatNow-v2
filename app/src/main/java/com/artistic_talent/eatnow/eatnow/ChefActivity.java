@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.artistic_talent.eatnow.eatnow.Model.CategoryItem;
@@ -80,18 +81,21 @@ public class ChefActivity extends BaseActivity {
                         for (DataSnapshot all_orders : users_processing_orders)
                         {
                             Iterable<DataSnapshot> user_orders = all_orders.getChildren();
+                            String user = all_orders.getKey();
 
                             for (DataSnapshot order : user_orders)
                             {
                                 Iterable<DataSnapshot> order_items = order.getChildren();
+                                String index = order.getKey();
 
                                 for (DataSnapshot order_item : order_items)
                                 {
                                     item_list.add(new CategoryItem(order_item.child("name").getValue().toString(),
                                                                    Integer.parseInt(order_item.child("qty").getValue().toString()),
                                                                    Double.parseDouble(order_item.child("price").getValue().toString()),
-                                                                   Integer.parseInt(order_item.child("stall_id").getValue().toString())));
-
+                                                                   Integer.parseInt(order_item.child("stall_id").getValue().toString()),
+                                                                   user + "_" + index,
+                                                                   order_item.getKey()));
                                 }
                             }
                         }

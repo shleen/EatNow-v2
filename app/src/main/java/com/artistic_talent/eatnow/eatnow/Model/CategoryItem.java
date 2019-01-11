@@ -8,11 +8,23 @@ public class CategoryItem {
     public double price;
     public int stall_id;
 
+    String order_id;
+    String item_id;
+
     public CategoryItem(String name, int qty, double price, int stall_id) {
         this.name = name;
         this.qty = qty;
         this.price = price;
         this.stall_id = stall_id;
+    }
+
+    public CategoryItem(String name, int qty, double price, int stall_id, String order_id, String item_id) {
+        this.name = name;
+        this.qty = qty;
+        this.price = price;
+        this.stall_id = stall_id;
+        this.order_id = order_id;
+        this.item_id = item_id;
     }
 
     public CategoryItem() {
@@ -49,4 +61,12 @@ public class CategoryItem {
     public void setQuantity(int qty) {
         this.qty = qty;
     }
+
+    public String getOrder_id() { return order_id; }
+
+    public void setOrder_id(String order_id) { this.order_id = order_id; }
+
+    public String getItem_id() { return item_id; }
+
+    public void setItem_id(String item_id) { this.item_id = item_id; }
 }
