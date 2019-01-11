@@ -1,4 +1,4 @@
-package com.example.eatnow.eatnow;
+package com.artistic_talent.eatnow.eatnow;
 
 public class Users {
 
