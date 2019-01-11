@@ -13,6 +13,9 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.auth.GetTokenResult;
 
 public class SignInActivity extends AppCompatActivity {
@@ -20,10 +23,15 @@ public class SignInActivity extends AppCompatActivity {
     EditText textEmail, textPassword;
     FirebaseAuth auth;
 
+    DatabaseReference databaseUsers, ChatRequestRef;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+
+        databaseUsers = FirebaseDatabase.getInstance().getReference("users");
 
         // Hide app bar
         // getSupportActionBar().hide();
@@ -50,6 +58,7 @@ public class SignInActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful())
                             {
+
                                 Toast.makeText(getApplicationContext(), "Logged in successfully.", Toast.LENGTH_SHORT).show();
                                 finish();
 
@@ -62,6 +71,7 @@ public class SignInActivity extends AppCompatActivity {
                     });
         }
     }
+
 
     private void redirectSignIn()
     {

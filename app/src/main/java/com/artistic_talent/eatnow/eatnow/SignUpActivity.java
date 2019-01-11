@@ -4,21 +4,34 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.apache.commons.validator.routines.EmailValidator;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignUpActivity extends AppCompatActivity {
 
     EditText textEmail, textPassword, textCfmPassword;
     FirebaseAuth auth;
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +85,9 @@ public class SignUpActivity extends AppCompatActivity {
 
                                             finish();
 
+                                            // Add device token to database
+                                            configureDeviceToken();
+
                                             Intent i = new Intent(getApplicationContext(), MenuActivity.class);
                                             startActivity(i);
                                         }
@@ -83,5 +99,47 @@ public class SignUpActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    public void configureDeviceToken()
+    {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String device_token = instanceIdResult.getToken();
+
+                DatabaseReference database_users = database.getReference("users");
+
+                String id = database_users.push().getKey();
+
+                Users users = new Users(id, device_token);
+
+                database_users.child(id).setValue(users);
+
+                Toast.makeText(getApplicationContext(), "User added", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+//        FirebaseFunctions functions = FirebaseFunctions.getInstance();
+//
+//        Map<String, Object> data = new HashMap<>();
+//        data.put("email", textEmail.getText().toString());
+//        data.put("claims", "{ device_token: '" + device_token + "'}");
+//
+//        functions.getHttpsCallable("setClaims")
+//                .call(data)
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        // TODO: Handle failure
+//                        Log.i("StrvvddWWtCpQmYnNkn4v7g", "sumthin died");
+//                    }
+//                })
+//                .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+//                    @Override
+//                    public void onSuccess(HttpsCallableResult httpsCallableResult) {
+//                        Toast.makeText(getApplicationContext(), "Device token added!", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
     }
 }
