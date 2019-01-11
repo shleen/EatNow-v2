@@ -110,11 +110,11 @@ public class SignUpActivity extends AppCompatActivity {
 
                 DatabaseReference database_users = database.getReference("users");
 
-                String id = database_users.push().getKey();
+                String email = Help.stripPath(textEmail.getText().toString());
 
-                Users users = new Users(id, device_token);
+                Users users = new Users(email, device_token);
 
-                database_users.child(id).setValue(users);
+                database_users.child(email).setValue(users);
 
                 Toast.makeText(getApplicationContext(), "User added", Toast.LENGTH_SHORT).show();
             }

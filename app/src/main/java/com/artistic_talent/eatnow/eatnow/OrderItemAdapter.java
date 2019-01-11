@@ -7,17 +7,24 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.artistic_talent.eatnow.eatnow.Model.CategoryItem;;
 import com.artistic_talent.eatnow.eatnow.ViewHolder.OrderItemViewHolder;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.functions.FirebaseFunctions;
+import com.google.firebase.functions.HttpsCallableResult;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder>
     implements ItemTouchHelperAdapter {
@@ -105,6 +112,42 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder>
                 });
 
                 // TODO: Notify user
+                // Get device token
+                DatabaseReference user = database.getReference("users/" + order_id[0]);
+                user.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String device_token = dataSnapshot.child("userDeviceToken").getValue().toString();
+
+                        // Send notification
+                        FirebaseFunctions functions = FirebaseFunctions.getInstance();
+
+                        Map<String, Object> data = new HashMap<>();
+                        data.put("email", order_id[0]);
+                        data.put("device_token", device_token);
+
+                        functions.getHttpsCallable("sendNotification")
+                                .call(data)
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // TODO: Handle failure
+                                        Log.i("StrvvddWWtCpQmYnNkn4v7g", e.getLocalizedMessage());
+                                    }
+                                })
+                                .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+                                    @Override
+                                    public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                                        Toast.makeText(mContext, "Notified!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
             }
 
             @Override
