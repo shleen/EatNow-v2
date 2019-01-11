@@ -36,7 +36,7 @@
         <activity android:name=".ChefActivity" />
         <activity
             android:name=".BaseActivity"
-            android:theme="@style/AppTheme.NoActionBar" />g
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".RobotActivity" />
     </application>
