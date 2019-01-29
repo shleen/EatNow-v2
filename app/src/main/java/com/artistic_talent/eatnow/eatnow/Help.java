@@ -10,6 +10,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Iterator;
+
 public class Help {
     // Returns the textual value of the given TextView
     public static String getText(TextView tv) {
@@ -131,5 +133,19 @@ public class Help {
                         // Database error
                     }
                 });
+    }
+
+    // Returns the provided data snapshot's last child's key value
+    public static String getLastChildKey(DataSnapshot dataSnapshot)
+    {
+        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+        Iterator<DataSnapshot> c = children.iterator();
+        DataSnapshot lastChild = c.next();
+
+        while(c.hasNext())
+        { lastChild = c.next(); }
+
+        return lastChild.getKey();
     }
 }
