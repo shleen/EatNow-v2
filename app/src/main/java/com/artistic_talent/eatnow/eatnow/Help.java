@@ -135,6 +135,40 @@ public class Help {
                 });
     }
 
+    // Completed order to collected
+    public static void moveToCollected(final DatabaseReference fromPath, final DatabaseReference toPath, final String key, final String order_id) {
+        fromPath.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                        for (DataSnapshot c : children) {
+                            toPath.child(key)
+                                    .child(c.getKey())
+                                    .setValue(c.getValue(), new DatabaseReference.CompletionListener() {
+                                        @Override
+                                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                            if (databaseError == null) {
+                                                // Success!
+
+                                                // Remove the original value
+                                                fromPath.setValue(null);
+                                            } else {
+                                                // Operation failed
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Database error
+                    }
+                });
+    }
+
     // Returns the provided data snapshot's last child's key value
     public static String getLastChildKey(DataSnapshot dataSnapshot)
     {
