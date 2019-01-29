@@ -24,9 +24,6 @@ import com.google.firebase.iid.InstanceIdResult;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class SignUpActivity extends AppCompatActivity {
 
     EditText textEmail, textPassword, textCfmPassword;
@@ -110,36 +107,12 @@ public class SignUpActivity extends AppCompatActivity {
 
                 DatabaseReference database_users = database.getReference("users");
 
-                String id = database_users.push().getKey();
+                String email = Help.stripPath(textEmail.getText().toString());
 
-                Users users = new Users(id, device_token);
+                Users users = new Users(email, device_token);
 
-                database_users.child(id).setValue(users);
-
-                Toast.makeText(getApplicationContext(), "User added", Toast.LENGTH_SHORT).show();
+                database_users.child(email).setValue(users);
             }
         });
-
-//        FirebaseFunctions functions = FirebaseFunctions.getInstance();
-//
-//        Map<String, Object> data = new HashMap<>();
-//        data.put("email", textEmail.getText().toString());
-//        data.put("claims", "{ device_token: '" + device_token + "'}");
-//
-//        functions.getHttpsCallable("setClaims")
-//                .call(data)
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        // TODO: Handle failure
-//                        Log.i("StrvvddWWtCpQmYnNkn4v7g", "sumthin died");
-//                    }
-//                })
-//                .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
-//                    @Override
-//                    public void onSuccess(HttpsCallableResult httpsCallableResult) {
-//                        Toast.makeText(getApplicationContext(), "Device token added!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
     }
 }

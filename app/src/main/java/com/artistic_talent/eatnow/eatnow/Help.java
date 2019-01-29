@@ -30,7 +30,6 @@ public class Help {
         for (DataSnapshot c : children) {
             if (Integer.parseInt(c.getKey()) > last) last = Integer.parseInt(c.getKey());
         }
-
         return last + 1;
     }
 
@@ -67,8 +66,10 @@ public class Help {
 
     // Pending order to processing
     public static void moveToProcessing(final DatabaseReference fromPath, final DatabaseReference toPath, final String key) {
-        fromPath.addListenerForSingleValueEvent(
+        fromPath.child(key).addListenerForSingleValueEvent(
                 new ValueEventListener() {
+                    // dataSnapshot holds the key and the value at the "fromPath".
+                    // Let's move it to the toPath. This operation duplicates the key/value pair at the fromPath to the toPath
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         Iterable<DataSnapshot> children = dataSnapshot.getChildren();
@@ -82,8 +83,7 @@ public class Help {
                                                 // Success!
 
                                                 // Remove the original value
-                                                Log.i("StrvvddWWtCpQmYnNkn4v7g", fromPath.toString());
-                                                fromPath.getParent().setValue(null);
+                                                fromPath.child(key).setValue(null);
                                             } else {
                                                 // Operation failed
                                             }
@@ -117,7 +117,7 @@ public class Help {
                                               // Success!
 
                                               // Remove the original value
-                                              fromPath.child(key).setValue(null);
+                                              fromPath.setValue(null);
                                           } else {
                                               // Operation failed
                                           }
