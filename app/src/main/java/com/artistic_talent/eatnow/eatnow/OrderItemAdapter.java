@@ -110,8 +110,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder>
 
                     }
                 });
-
-                // TODO: Notify user
+                
                 // Get device token
                 DatabaseReference user = database.getReference("users/" + order_id[0]);
                 user.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -138,7 +137,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder>
                                 .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
                                     @Override
                                     public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                                        Toast.makeText(mContext, "Notified!", Toast.LENGTH_SHORT).show();
+                                        Log.i("StrvvddWWtCpQmYnNkn4v7g", "Notified!");
                                     }
                                 });
                     }

@@ -30,7 +30,6 @@ public class Help {
         for (DataSnapshot c : children) {
             if (Integer.parseInt(c.getKey()) > last) last = Integer.parseInt(c.getKey());
         }
-
         return last + 1;
     }
 

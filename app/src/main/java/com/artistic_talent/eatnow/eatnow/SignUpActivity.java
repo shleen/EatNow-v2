@@ -24,9 +24,6 @@ import com.google.firebase.iid.InstanceIdResult;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class SignUpActivity extends AppCompatActivity {
 
     EditText textEmail, textPassword, textCfmPassword;
@@ -115,31 +112,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Users users = new Users(email, device_token);
 
                 database_users.child(email).setValue(users);
-
-                Toast.makeText(getApplicationContext(), "User added", Toast.LENGTH_SHORT).show();
             }
         });
-
-//        FirebaseFunctions functions = FirebaseFunctions.getInstance();
-//
-//        Map<String, Object> data = new HashMap<>();
-//        data.put("email", textEmail.getText().toString());
-//        data.put("claims", "{ device_token: '" + device_token + "'}");
-//
-//        functions.getHttpsCallable("setClaims")
-//                .call(data)
-//                .addOnFailureListener(new OnFailureListener() {
-//                    @Override
-//                    public void onFailure(@NonNull Exception e) {
-//                        // TODO: Handle failure
-//                        Log.i("StrvvddWWtCpQmYnNkn4v7g", "sumthin died");
-//                    }
-//                })
-//                .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
-//                    @Override
-//                    public void onSuccess(HttpsCallableResult httpsCallableResult) {
-//                        Toast.makeText(getApplicationContext(), "Device token added!", Toast.LENGTH_SHORT).show();
-//                    }
-//                });
     }
 }

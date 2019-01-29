@@ -17,12 +17,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.iid.InstanceIdResult;
 
 public class SignInActivity extends AppCompatActivity {
 
     EditText textEmail, textPassword;
     FirebaseAuth auth;
 
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference databaseUsers, ChatRequestRef;
 
 
@@ -58,9 +60,11 @@ public class SignInActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful())
                             {
-
                                 Toast.makeText(getApplicationContext(), "Logged in successfully.", Toast.LENGTH_SHORT).show();
                                 finish();
+
+                                // Update device token
+                                updateDeviceToken();
 
                                 // Redirect user to appropriate page
                                 redirectSignIn();
@@ -99,6 +103,22 @@ public class SignInActivity extends AppCompatActivity {
                 }
 
                 startActivity(i);
+            }
+        });
+    }
+
+    private void updateDeviceToken()
+    {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener( new OnSuccessListener<InstanceIdResult>() {
+            @Override
+            public void onSuccess(InstanceIdResult instanceIdResult) {
+                String device_token = instanceIdResult.getToken();
+
+                DatabaseReference database_users = database.getReference("users");
+
+                String email = Help.stripPath(textEmail.getText().toString());
+
+                database_users.child(email).child("userDeviceToken").setValue(device_token);
             }
         });
     }
