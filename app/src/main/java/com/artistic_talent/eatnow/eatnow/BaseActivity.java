@@ -39,6 +39,7 @@ public class BaseActivity extends AppCompatActivity {
                         } else if (id == R.id.nav_cart) {
                             i = new Intent(getApplicationContext(), CartActivity.class);
                         } else if (id == R.id.nav_orders) {
+                            i = new Intent(getApplicationContext(),OrderActivity.class);
 
                         } else if (id == R.id.nav_qr) {
                             i = new Intent(getApplicationContext(), QRCodeActivity.class);
