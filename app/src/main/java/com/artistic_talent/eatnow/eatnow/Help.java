@@ -1,5 +1,7 @@
 package com.artistic_talent.eatnow.eatnow;
 
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.artistic_talent.eatnow.eatnow.Model.OrderItem;
@@ -7,7 +9,17 @@ import com.google.common.collect.Iterables;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class Help {
     // Returns the textual value of the given TextView
@@ -129,6 +141,99 @@ public class Help {
                     public void onCancelled(DatabaseError databaseError) {
                         // Database error
                     }
+                 });
+    }
+
+    // Completed order to collected
+    public static void moveToCollected(final DatabaseReference fromPath, final DatabaseReference toPath, final String key) {
+        fromPath.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                        for (DataSnapshot c : children) {
+                            toPath.child(key)
+                                    .child(c.getKey())
+                                    .setValue(c.getValue(), new DatabaseReference.CompletionListener() {
+                                        @Override
+                                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                            if (databaseError == null) {
+                                                // Success!
+
+                                                // Remove the original value
+                                                fromPath.setValue(null);
+                                            } else {
+                                                // Operation failed
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Database error
+                    }
                 });
+    }
+
+    // Ping the robot with the given RequestBody
+    public static void pingRobot(final RequestBody body)
+    {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference ref = database.getReference("robot/ip");
+
+        // Get robot IP
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String ip = dataSnapshot.getValue().toString();
+
+                try {
+                    post("http://" + ip, body, new Callback() {
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            // TODO: Handle failure
+                            Log.i("StrvvddWWtCpQmYnNkn4v7g", e.getMessage());
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            if (response.isSuccessful()) {
+                                String responseStr = response.body().string();
+                                // Do what you want to do with the response.
+                                Log.i("StrvvddWWtCpQmYnNkn4v7g", responseStr);
+
+                            } else {
+                                // TODO: Handle request not successful
+                                Log.i("StrvvddWWtCpQmYnNkn4v7g", "failed!");
+                            }
+                        }
+                    });
+                } catch (IOException e) {
+                    // TODO: Handle exception
+                    Log.i("StrvvddWWtCpQmYnNkn4v7g", e.getMessage());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // TODO: Handle failure
+            }
+        });
+    }
+
+    private static Call post(String url, RequestBody body, Callback callback) throws IOException {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(body)
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(callback);
+        return call;
     }
 }
