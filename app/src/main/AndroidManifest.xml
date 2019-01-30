@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <meta-data
         android:name="com.google.android.gms.vision.DEPENDENCIES"
@@ -39,13 +40,7 @@
             android:name=".BaseActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PaymentActivity" />
-        <activity android:name=".QRActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".QRCodeActivity"></activity>
     </application>
 
 </manifest>
