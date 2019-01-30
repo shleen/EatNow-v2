@@ -18,7 +18,6 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
-import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -74,7 +73,6 @@ public class RobotActivity extends BaseActivity {
     {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             OkHttpClient client = new OkHttpClient();
-            public final MediaType JSON = MediaType.get("application/json; charset=utf-8");
 
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
