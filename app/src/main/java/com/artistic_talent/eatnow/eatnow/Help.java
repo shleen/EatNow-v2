@@ -21,6 +21,8 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+import java.util.Iterator;
+
 public class Help {
     // Returns the textual value of the given TextView
     public static String getText(TextView tv) {
@@ -236,5 +238,19 @@ public class Help {
         Call call = client.newCall(request);
         call.enqueue(callback);
         return call;
+    }
+
+    // Returns the provided data snapshot's last child's key value
+    public static String getLastChildKey(DataSnapshot dataSnapshot)
+    {
+        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+        Iterator<DataSnapshot> c = children.iterator();
+        DataSnapshot lastChild = c.next();
+
+        while(c.hasNext())
+        { lastChild = c.next(); }
+
+        return lastChild.getKey();
     }
 }

@@ -10,17 +10,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.functions.FirebaseFunctions;
-import com.google.firebase.functions.HttpsCallableResult;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.pusher.pushnotifications.PushNotifications;
 
 import org.apache.commons.validator.routines.EmailValidator;
 
@@ -47,7 +45,7 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void createUser(View v)
     {
-        String email = Help.getText(textEmail);
+        final String email = Help.getText(textEmail);
         String password = Help.getText(textPassword);
         String cfm_password = Help.getText(textCfmPassword);
 
@@ -80,10 +78,14 @@ public class SignUpActivity extends AppCompatActivity {
                                         {
                                             Toast.makeText(getApplicationContext(), "User created successfully!", Toast.LENGTH_SHORT).show();
 
-                                            finish();
+                                            // Subscribe to pusher
+                                            PushNotifications.start(getApplicationContext(), "b3cd1a24-8e1f-45a6-a46b-56b2f4fcddf6");
+                                            PushNotifications.subscribe(Help.stripPath(email));;
 
                                             // Add device token to database
                                             configureDeviceToken();
+
+                                            finish();
 
                                             Intent i = new Intent(getApplicationContext(), MenuActivity.class);
                                             startActivity(i);
