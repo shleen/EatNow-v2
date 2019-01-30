@@ -9,6 +9,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Iterator;
+
 public class Help {
     // Returns the textual value of the given TextView
     public static String getText(TextView tv) {
@@ -130,5 +132,53 @@ public class Help {
                         // Database error
                     }
                 });
+    }
+
+    // Completed order to collected
+    public static void moveToCollected(final DatabaseReference fromPath, final DatabaseReference toPath, final String key, final String order_id) {
+        fromPath.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                        for (DataSnapshot c : children) {
+                            toPath.child(key)
+                                    .child(c.getKey())
+                                    .setValue(c.getValue(), new DatabaseReference.CompletionListener() {
+                                        @Override
+                                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                                            if (databaseError == null) {
+                                                // Success!
+
+                                                // Remove the original value
+                                                fromPath.setValue(null);
+                                            } else {
+                                                // Operation failed
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Database error
+                    }
+                });
+    }
+
+    // Returns the provided data snapshot's last child's key value
+    public static String getLastChildKey(DataSnapshot dataSnapshot)
+    {
+        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+        Iterator<DataSnapshot> c = children.iterator();
+        DataSnapshot lastChild = c.next();
+
+        while(c.hasNext())
+        { lastChild = c.next(); }
+
+        return lastChild.getKey();
     }
 }
