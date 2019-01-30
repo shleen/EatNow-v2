@@ -44,11 +44,13 @@ public class SignInActivity extends AppCompatActivity {
         textPassword = (EditText) findViewById(R.id.textPassword);
 
         auth = FirebaseAuth.getInstance();
+
+
     }
 
     public void signInUser(View v)
     {
-        String email = textEmail.getText().toString();
+        final String email = textEmail.getText().toString();
         String password = textPassword.getText().toString();
 
         // Validate empty inputs
@@ -70,6 +72,9 @@ public class SignInActivity extends AppCompatActivity {
 
                                 // Redirect user to appropriate page
                                 redirectSignIn();
+
+                                //Send email over to Order activity
+                                MyApplication.someVariable = textEmail.getText().toString();
                             }
                             else
                             { Toast.makeText(getApplicationContext(), "Incorrect credentials. Please try again.", Toast.LENGTH_SHORT).show(); }

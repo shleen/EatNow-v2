@@ -23,6 +23,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         navigationView = findViewById(R.id.nav_view);
@@ -40,12 +41,18 @@ public class BaseActivity extends AppCompatActivity {
                             i = new Intent(getApplicationContext(), CartActivity.class);
                         } else if (id == R.id.nav_orders) {
 
+                            i = new Intent(getApplicationContext(),OrderActivity.class);
+
+
+                        } else if (id == R.id.nav_qr) {
+                            i = new Intent(getApplicationContext(), QRCodeActivity.class);
                         } else if (id == R.id.nav_logout) {
                             signOut();
                             i = new Intent(getApplicationContext(), MainActivity.class);
                         }
 
                         startActivity(i);
+
 
                         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                         drawer.closeDrawer(GravityCompat.START);

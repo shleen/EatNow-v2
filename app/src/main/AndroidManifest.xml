@@ -4,6 +4,12 @@
     package="com.artistic_talent.eatnow.eatnow">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <meta-data
+        android:name="com.google.android.gms.vision.DEPENDENCIES"
+        android:value="barcode" />
 
     <application
         android:allowBackup="true"
@@ -12,9 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning"
-        android:usesCleartextTraffic="true">
-
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,18 +32,19 @@
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
             android:name=".CartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PaymentActivity" />
-        <activity android:name=".ChefActivity" />
         <activity
             android:name=".BaseActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".PaymentActivity" />
+        <activity android:name=".QRCodeActivity" />
+        <activity android:name=".ChefActivity" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".RobotActivity" />
+        <activity android:name=".OrderActivity"></activity>
     </application>
 
 </manifest>

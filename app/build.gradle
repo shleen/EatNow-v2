@@ -45,7 +45,10 @@ dependencies {
     implementation 'commons-validator:commons-validator:1.6'
     implementation 'com.craftman.cardform:cardform:0.0.2'
 
+    //QR scanner dependencies
+    implementation 'com.google.android.gms:play-services-vision:16.2.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.1'
+
 
     api 'com.google.guava:guava:27.0.1-android'
 
