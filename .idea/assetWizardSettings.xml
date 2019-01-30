@@ -18,11 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-<<<<<<< HEAD
                                       <entry key="url" value="jar:file:/C:/Program%20Files/Android/Android%20Studio/plugins/android/lib/android.jar!/images/material_design_icons/image/ic_photo_camera_black_24dp.xml" />
-=======
-                                      <entry key="url" value="jar:file:/Applications/Android%20Studio.app/Contents/plugins/android/lib/android.jar!/images/material_design_icons/editor/ic_border_color_black_24dp.xml" />
->>>>>>> 3182187b55ab0efac965fe8711cb3ca0db557615
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -32,13 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-<<<<<<< HEAD
                             <entry key="outputName" value="ic_photo_camera" />
                             <entry key="sourceFile" value="C:\Users\admin" />
-=======
-                            <entry key="outputName" value="ic_order" />
-                            <entry key="sourceFile" value="$USER_HOME$" />
->>>>>>> 3182187b55ab0efac965fe8711cb3ca0db557615
                           </map>
                         </option>
                       </PersistentState>
