@@ -58,7 +58,6 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder>
 
     @Override
     public int getItemCount() {
-
         return mArray.size();
     }
 

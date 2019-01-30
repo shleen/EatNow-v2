@@ -42,6 +42,7 @@ public class BaseActivity extends AppCompatActivity {
 
                         } else if (id == R.id.nav_qr) {
                             i = new Intent(getApplicationContext(), QRCodeActivity.class);
+                            QRCodeActivity.done = 0;
                         } else if (id == R.id.nav_logout) {
                             signOut();
                             i = new Intent(getApplicationContext(), MainActivity.class);

@@ -2,12 +2,14 @@ package com.artistic_talent.eatnow.eatnow;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Vibrator;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -41,6 +43,8 @@ public class QRCodeActivity extends AppCompatActivity {
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     FirebaseAuth auth = FirebaseAuth.getInstance();
     DatabaseReference completed_orders = database.getReference("orders/completed");
+
+    static int done = 0;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -112,56 +116,36 @@ public class QRCodeActivity extends AppCompatActivity {
             @Override
             public void receiveDetections(Detector.Detections<Barcode> detections) {
                 final SparseArray<Barcode> qrCode = detections.getDetectedItems();
+
                 if(qrCode.size() != 0)
                 {
-                    ScanResult.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            // Create Vibrate
-                            Vibrator vibrateAlert = (Vibrator)getApplicationContext().getSystemService(Context.VIBRATOR_SERVICE);
-                            vibrateAlert.vibrate(1);
+                    if (done == 0)
+                    {
+                        done = 1;
 
-                            ScanResult.setText(qrCode.valueAt(0).displayValue);
-                        }
-                    });
+                        String orderID = "123";
+                        String collectionPointID = qrCode.valueAt(0).displayValue;
 
-                    // TODO: Grab the user's last completed order id
-                    final DatabaseReference user_completed_orders = completed_orders.child(Help.stripPath(auth.getCurrentUser().getEmail()));
-                    user_completed_orders.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                            Iterator<DataSnapshot> itr = children.iterator();
+                        // Send HTTP Request to robot
+                        RequestBody body = new MultipartBody.Builder()
+                                .setType(MultipartBody.FORM)
+                                .addFormDataPart("order_id", orderID)
+                                .addFormDataPart("collection_point_id", collectionPointID)
+                                .build();
 
-                            DataSnapshot lastChild = itr.next();
+                        Help.pingRobot(body);
 
-                            while (itr.hasNext())
-                            { lastChild = itr.next(); }
+                        // Move from completed to collected
+//                        DatabaseReference collected_orders = database.getReference("orders/collected");
+//                        Help.moveToCollected(user_completed_orders.child(lastChild.getKey()),
+//                                collected_orders.child(Help.stripPath(auth.getCurrentUser().getEmail())),
+//                                Integer.toString(Help.getNextId(dataSnapshot)));
 
-                            String orderID = auth.getCurrentUser().getEmail() + lastChild.getKey();
-                            String collectionPointID = qrCode.valueAt(0).displayValue;
+                        finish();
 
-                            // TODO: Send HTTP Request to robot
-                            RequestBody body = new MultipartBody.Builder()
-                                    .setType(MultipartBody.FORM)
-                                    .addFormDataPart("order_id", orderID)
-                                    .addFormDataPart("collection_point_id", collectionPointID)
-                                    .build();
-
-                            Help.pingRobot(body);
-
-                            // TODO: Move from completed to collected
-                            DatabaseReference collected_orders = database.getReference("orders/collected");
-                            Help.moveToCollected(user_completed_orders,
-                                    collected_orders.child(Help.stripPath(auth.getCurrentUser().getEmail())),
-                                    Integer.toString(Help.getNextId(dataSnapshot)));
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            // TODO: Handle failure
-                        }
-                    });
+                        Intent i = new Intent(getApplicationContext(), MenuActivity.class);
+                        startActivity(i);
+                    }
                 }
             }
         });

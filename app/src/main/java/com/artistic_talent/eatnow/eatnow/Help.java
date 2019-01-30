@@ -189,6 +189,7 @@ public class Help {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String ip = dataSnapshot.getValue().toString();
+                Log.i("StrvvddWWtCpQmYnNkn4v7g", "ip: " + ip);
 
                 try {
                     post("http://" + ip, body, new Callback() {
