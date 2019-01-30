@@ -1,6 +1,5 @@
 package com.artistic_talent.eatnow.eatnow;
 
-import android.util.Log;
 import android.widget.TextView;
 
 import com.artistic_talent.eatnow.eatnow.Model.OrderItem;
