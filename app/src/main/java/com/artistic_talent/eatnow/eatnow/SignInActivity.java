@@ -19,8 +19,6 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.iid.InstanceIdResult;
 
-import com.pusher.pushnotifications.PushNotifications;
-
 public class SignInActivity extends AppCompatActivity {
 
     EditText textEmail, textPassword;
