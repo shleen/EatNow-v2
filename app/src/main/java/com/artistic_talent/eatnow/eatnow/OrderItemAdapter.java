@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.artistic_talent.eatnow.eatnow.Model.CategoryItem;;
 import com.artistic_talent.eatnow.eatnow.ViewHolder.OrderItemViewHolder;
@@ -110,43 +109,28 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemViewHolder>
 
                     }
                 });
-                
-                // Get device token
-                DatabaseReference user = database.getReference("users/" + order_id[0]);
-                user.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String device_token = dataSnapshot.child("userDeviceToken").getValue().toString();
 
-                        // Send notification
-                        FirebaseFunctions functions = FirebaseFunctions.getInstance();
+                // Send notification
+                FirebaseFunctions functions = FirebaseFunctions.getInstance();
 
-                        Map<String, Object> data = new HashMap<>();
-                        data.put("email", order_id[0]);
-                        data.put("device_token", device_token);
+                Map<String, Object> data = new HashMap<>();
+                data.put("email", order_id[0]);
 
-                        functions.getHttpsCallable("sendNotification")
-                                .call(data)
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        // TODO: Handle failure
-                                        Log.i("StrvvddWWtCpQmYnNkn4v7g", e.getLocalizedMessage());
-                                    }
-                                })
-                                .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
-                                    @Override
-                                    public void onSuccess(HttpsCallableResult httpsCallableResult) {
-                                        Log.i("StrvvddWWtCpQmYnNkn4v7g", "Notified!");
-                                    }
-                                });
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                functions.getHttpsCallable("sendNotification")
+                        .call(data)
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // TODO: Handle failure
+                                Log.i("StrvvddWWtCpQmYnNkn4v7g", e.getLocalizedMessage());
+                            }
+                        })
+                        .addOnSuccessListener(new OnSuccessListener<HttpsCallableResult>() {
+                            @Override
+                            public void onSuccess(HttpsCallableResult httpsCallableResult) {
+                                Log.i("StrvvddWWtCpQmYnNkn4v7g", "Notified!!!");
+                            }
+                        });
             }
 
             @Override
