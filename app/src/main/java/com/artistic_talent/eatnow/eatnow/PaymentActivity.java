@@ -3,6 +3,7 @@ package com.artistic_talent.eatnow.eatnow;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 
@@ -50,20 +52,37 @@ public class PaymentActivity extends BaseActivity {
         cardForm.setPayBtnClickListner(new OnPayBtnClickListner() {
             @Override
             public void onClick(Card card) {
+                final String email = Help.stripPath(auth.getCurrentUser().getEmail());
+                // Add timestamp to all order items
+                pending_orders.child(email).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+
+                        for (DataSnapshot c : children)
+                        { c.child("created_at").getRef().setValue(ServerValue.TIMESTAMP); }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        // TODO: Handle failure
+                    }
+                });
+
                 // Payment complete. Move order to processing
-                final DatabaseReference user_processing_orders = processing_orders.child(Help.stripPath(auth.getCurrentUser().getEmail()));
+                final DatabaseReference user_processing_orders = processing_orders.child(email);
                 user_processing_orders.addListenerForSingleValueEvent(
                         new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 Help.moveToProcessing(pending_orders,
                                           user_processing_orders.child(Integer.toString(Help.getNextId(dataSnapshot))),
-                                          Help.stripPath(auth.getCurrentUser().getEmail()));
+                                          email);
                             }
 
                             @Override
                             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                                // TODO: Handle failure
                             }
                         }
                 );
