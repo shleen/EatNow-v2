@@ -39,6 +39,14 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="16dp"/>
+
+            <ImageView
+                android:id="@+id/food_item_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/food_item_price"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"/>
         </RelativeLayout>
 
     </RelativeLayout>
