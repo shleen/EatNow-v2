@@ -32,7 +32,7 @@
         <activity
             android:name=".MenuActivity"
             android:label="@string/title_activity_home"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".CartActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -44,7 +44,8 @@
         <activity android:name=".ChefActivity" />
         <activity android:name=".AdminActivity" />
         <activity android:name=".RobotActivity" />
-        <activity android:name=".OrderActivity"></activity>
+        <activity android:name=".OrderActivity" />
+        <activity android:name=".SuccessfulCollectionActivity"></activity>
     </application>
 
 </manifest>

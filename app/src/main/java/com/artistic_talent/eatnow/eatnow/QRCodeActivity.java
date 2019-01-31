@@ -143,7 +143,7 @@ public class QRCodeActivity extends AppCompatActivity {
 
                         finish();
 
-                        Intent i = new Intent(getApplicationContext(), MenuActivity.class);
+                        Intent i = new Intent(getApplicationContext(), SuccessfulCollectionActivity.class);
                         startActivity(i);
                     }
                 }
