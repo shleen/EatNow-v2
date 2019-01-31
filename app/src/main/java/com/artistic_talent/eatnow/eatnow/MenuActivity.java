@@ -2,15 +2,20 @@ package com.artistic_talent.eatnow.eatnow;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +31,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.InputStream;
 import java.text.NumberFormat;
 
 public class MenuActivity extends BaseActivity {
@@ -61,6 +67,31 @@ public class MenuActivity extends BaseActivity {
         loadMenu();
     }
 
+    private class downloadImage extends AsyncTask<String, Void, Bitmap> {
+        ImageView bmImage;
+
+        public downloadImage(ImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap mIcon11 = null;
+            try {
+                InputStream in = new java.net.URL(urldisplay).openStream();
+                mIcon11 = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return mIcon11;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            bmImage.setImageBitmap(result);
+        }
+    }
+
     private void loadMenu() {
         FirebaseRecyclerAdapter<FoodItem, FoodItemViewHolder> adapter = new FirebaseRecyclerAdapter<FoodItem, FoodItemViewHolder>(FoodItem.class, R.layout.food_item, FoodItemViewHolder.class, menu) {
             @Override
@@ -69,6 +100,8 @@ public class MenuActivity extends BaseActivity {
 
                 NumberFormat formatter = NumberFormat.getCurrencyInstance();
                 viewHolder.txtMenuItemPrice.setText(formatter.format(model.getPrice()));
+
+                new downloadImage((ImageView) viewHolder.imgMenuItemImg).execute(model.getImage_addr());
 
                 final FoodItem clickItem = model;
                 viewHolder.setItemClickListener(new ItemClickListener() {
